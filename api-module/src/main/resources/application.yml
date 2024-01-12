@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: draw-my-today
+  profiles:
+    active: local
+  config:
+    import:
+      - file:./storage-module/db/src/main/resources/application-db.yml
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
