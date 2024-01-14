@@ -1,4 +1,4 @@
-package tipitapi.drawmytodayimprovement.diary.controller;
+package tipitapi.drawmytodayimprovement.domain.diary.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import tipitapi.drawmytodayimprovement.common.resolver.AuthUser;
 import tipitapi.drawmytodayimprovement.common.response.SuccessResponse;
-import tipitapi.drawmytodayimprovement.diary.response.GetDiaryResponse;
+import tipitapi.drawmytodayimprovement.domain.vo.JwtTokenInfo;
+import tipitapi.drawmytodayimprovement.domain.diary.response.GetDiaryResponse;
 import tipitapi.drawmytodayimprovement.usecase.DiaryUseCase;
 
 @RestController
@@ -21,11 +23,11 @@ public class DiaryController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<SuccessResponse<GetDiaryResponse>> getDiary(
-		@PathVariable("id") Long diaryId
-		// @AuthUser JwtTokenInfo tokenInfo
+		@PathVariable("id") Long diaryId,
+		@AuthUser JwtTokenInfo jwtTokenInfo
 	) {
 		return SuccessResponse.of(
-			GetDiaryResponse.of(diaryUseCase.getDiary(1L, diaryId))
+			GetDiaryResponse.of(diaryUseCase.getDiary(jwtTokenInfo.getUserId(), diaryId))
 		).asHttp(HttpStatus.OK);
 	}
 

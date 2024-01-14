@@ -50,11 +50,14 @@ public class UserEntity extends BaseEntityWithUpdate {
 
 	private LocalDateTime deletedAt;
 
-	@Builder(access = AccessLevel.PRIVATE)
-	private UserEntity(String email, SocialCode socialCode) {
+	@Builder
+	private UserEntity(Long id, String email, SocialCode socialCode, LocalDateTime lastDiaryDate,
+			UserRole userRole, LocalDateTime deletedAt) {
+		this.id = id;
 		this.email = email;
 		this.socialCode = socialCode;
-		this.userRole = UserRole.USER;
+		this.lastDiaryDate = lastDiaryDate;
+		this.userRole = userRole;
+		this.deletedAt = deletedAt;
 	}
-
 }

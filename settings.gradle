@@ -7,7 +7,13 @@ pluginManagement {
 
 rootProject.name = 'drawmytoday-improvement'
 
+include 'domain-module'
+include 'domain-module:auth'
 include 'domain-module:diary'
+include 'domain-module:user'
+
 include 'api-module'
+
 include 'storage-module:db'
+
 include 'common-module'

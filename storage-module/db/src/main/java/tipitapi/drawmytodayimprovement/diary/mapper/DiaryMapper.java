@@ -1,17 +1,24 @@
 package tipitapi.drawmytodayimprovement.diary.mapper;
 
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 import tipitapi.drawmytodayimprovement.diary.entity.DiaryEntity;
 import tipitapi.drawmytodayimprovement.domain.Diary;
 import tipitapi.drawmytodayimprovement.emotion.entity.EmotionEntity;
 import tipitapi.drawmytodayimprovement.emotion.mapper.EmotionMapper;
 
+@Component
+@RequiredArgsConstructor
 public class DiaryMapper {
 
-	public static Diary mapToDiary(DiaryEntity diaryEntity, EmotionEntity emotionEntity) {
+	private final EmotionMapper emotionMapper;
+
+	public Diary mapToDiary(DiaryEntity diaryEntity, EmotionEntity emotionEntity) {
 		return Diary.builder()
 			.diaryId(diaryEntity.getId())
 			.createdAt(diaryEntity.getCreatedAt())
-			.emotion(EmotionMapper.mapToEmotion(emotionEntity))
+			.emotion(emotionMapper.mapToEmotion(emotionEntity))
 			.userId(diaryEntity.getUserEntity().getId())
 			.diaryDate(diaryEntity.getDiaryDate())
 			.notes(diaryEntity.getNotes())

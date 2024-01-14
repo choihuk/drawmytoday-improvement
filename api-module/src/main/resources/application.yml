@@ -3,6 +3,7 @@ spring:
     name: draw-my-today
   profiles:
     active: local
+    include: oauth
   config:
     import:
       - file:./storage-module/db/src/main/resources/application-db.yml

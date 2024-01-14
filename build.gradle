@@ -20,6 +20,8 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
 
     dependencies {
+        implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.5'
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.5'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
     }
