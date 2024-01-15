@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import tipitapi.drawmytodayimprovement.common.resolver.AuthUser;
 import tipitapi.drawmytodayimprovement.common.response.SuccessResponse;
-import tipitapi.drawmytodayimprovement.domain.vo.JwtTokenInfo;
 import tipitapi.drawmytodayimprovement.domain.diary.response.GetDiaryResponse;
+import tipitapi.drawmytodayimprovement.domain.vo.JwtTokenInfo;
 import tipitapi.drawmytodayimprovement.usecase.DiaryUseCase;
 
 @RestController
@@ -27,7 +27,7 @@ public class DiaryController {
 		@AuthUser JwtTokenInfo jwtTokenInfo
 	) {
 		return SuccessResponse.of(
-			GetDiaryResponse.of(diaryUseCase.getDiary(jwtTokenInfo.getUserId(), diaryId))
+			GetDiaryResponse.of(diaryUseCase.getDiary(jwtTokenInfo.userId(), diaryId))
 		).asHttp(HttpStatus.OK);
 	}
 

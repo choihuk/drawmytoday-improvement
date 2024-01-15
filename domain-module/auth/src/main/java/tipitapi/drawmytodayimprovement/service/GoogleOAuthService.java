@@ -60,7 +60,7 @@ public class GoogleOAuthService {
 			HttpClient httpClient = HttpClient.newHttpClient();
 			HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create(userInfoUrl))
-				.header("Authorization", "Bearer " + accessToken.getAccessToken())
+				.header("Authorization", "Bearer " + accessToken.accessToken())
 				.GET()
 				.build();
 

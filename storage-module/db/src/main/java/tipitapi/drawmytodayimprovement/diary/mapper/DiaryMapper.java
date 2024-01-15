@@ -18,7 +18,7 @@ public class DiaryMapper {
 		return Diary.builder()
 			.diaryId(diaryEntity.getId())
 			.createdAt(diaryEntity.getCreatedAt())
-			.emotion(emotionMapper.mapToEmotion(emotionEntity))
+			.emotion(emotionMapper.toDomain(emotionEntity))
 			.userId(diaryEntity.getUserEntity().getId())
 			.diaryDate(diaryEntity.getDiaryDate())
 			.notes(diaryEntity.getNotes())

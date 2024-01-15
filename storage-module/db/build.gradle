@@ -2,6 +2,7 @@ dependencies {
     compileOnly project(':domain-module:auth')
     compileOnly project(':domain-module:diary')
     compileOnly project(':domain-module:user')
+    compileOnly project(':domain-module:reward')
     implementation project(':common-module')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

@@ -22,13 +22,13 @@ class UserEntityRepository implements UserRepository {
 	@Override
 	public List<User> findAllByEmail(String email) {
 		return userJpaRepository.findAllByEmail(email).stream()
-			.map(userMapper::mapToUser)
+			.map(userMapper::toDomain)
 			.collect(Collectors.toList());
 	}
 
 	@Override
 	@Transactional
 	public User save(User user) {
-		return userMapper.mapToUser(userJpaRepository.save(userMapper.mapToUserEntity(user)));
+		return userMapper.toDomain(userJpaRepository.save(userMapper.toEntity(user)));
 	}
 }

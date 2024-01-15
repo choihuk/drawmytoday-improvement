@@ -5,6 +5,7 @@ dependencies {
     implementation project(':domain-module:auth')
     implementation project(':domain-module:diary')
     implementation project(':domain-module:user')
+    implementation project(':domain-module:reward')
     implementation project(':common-module')
     implementation project(':storage-module:db')
 

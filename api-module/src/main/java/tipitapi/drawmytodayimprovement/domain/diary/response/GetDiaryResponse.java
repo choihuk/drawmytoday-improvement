@@ -1,14 +1,8 @@
 package tipitapi.drawmytodayimprovement.domain.diary.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import tipitapi.drawmytodayimprovement.domain.Diary;
 
-@Getter
-@AllArgsConstructor
-public class GetDiaryResponse {
-
-    private final Long id;
+public record GetDiaryResponse(Long id) {
 
     // private final String imageUrl;
     //

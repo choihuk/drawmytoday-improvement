@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tipitapi.drawmytodayimprovement.common.BaseEntity;
@@ -36,7 +37,9 @@ public class AuthEntity extends BaseEntity {
 	@Column(nullable = false)
 	private String refreshToken;
 
-	private AuthEntity(UserEntity userEntity, String refreshToken) {
+	@Builder
+	private AuthEntity(Long id, UserEntity userEntity, String refreshToken) {
+		this.id = id;
 		this.userEntity = userEntity;
 		this.refreshToken = refreshToken;
 	}

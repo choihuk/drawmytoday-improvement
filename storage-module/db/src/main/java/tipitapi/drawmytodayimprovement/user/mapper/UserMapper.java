@@ -9,7 +9,7 @@ import tipitapi.drawmytodayimprovement.user.entity.UserEntity;
 public class UserMapper {
 
 
-	public User mapToUser(UserEntity userEntity) {
+	public User toDomain(UserEntity userEntity) {
 		return User.builder()
 				.userId(userEntity.getId())
 				.createdAt(userEntity.getCreatedAt())
@@ -22,7 +22,7 @@ public class UserMapper {
 				.build();
 	}
 
-	public UserEntity mapToUserEntity(User user) {
+	public UserEntity toEntity(User user) {
 		return UserEntity.builder()
 				.id(user.getUserId())
 				.email(user.getEmail())

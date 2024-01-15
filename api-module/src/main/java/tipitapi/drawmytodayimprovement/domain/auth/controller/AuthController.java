@@ -30,9 +30,9 @@ public class AuthController {
 		JwtTokenInfo jwtTokenInfo = authUseCase.googleLogin(HeaderUtils.getAuthCode(request));
 
 		String accessToken = jwtTokenProvider.createAccessToken(
-			jwtTokenInfo.getUserId(), jwtTokenInfo.getUserRole());
+			jwtTokenInfo.userId(), jwtTokenInfo.userRole());
 		String refreshToken = jwtTokenProvider.createRefreshToken(
-			jwtTokenInfo.getUserId(), jwtTokenInfo.getUserRole());
+			jwtTokenInfo.userId(), jwtTokenInfo.userRole());
 		return SuccessResponse.of(
 			JwtTokenResponse.of(accessToken, refreshToken)
 		).asHttp(HttpStatus.OK);

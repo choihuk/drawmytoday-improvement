@@ -1,6 +1,7 @@
 package tipitapi.drawmytodayimprovement.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import tipitapi.drawmytodayimprovement.domain.User;
@@ -9,6 +10,7 @@ import tipitapi.drawmytodayimprovement.exception.UserNotFoundException;
 import tipitapi.drawmytodayimprovement.repository.UserRepository;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ValidateUserService {
 

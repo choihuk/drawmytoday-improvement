@@ -8,7 +8,7 @@ import tipitapi.drawmytodayimprovement.emotion.entity.EmotionEntity;
 @Component
 public class EmotionMapper {
 
-	public Emotion mapToEmotion(EmotionEntity emotionEntity) {
+	public Emotion toDomain(EmotionEntity emotionEntity) {
 		return Emotion.builder()
 			.emotionId(emotionEntity.getId())
 			.createdAt(emotionEntity.getCreatedAt())

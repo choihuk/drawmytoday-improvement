@@ -22,16 +22,16 @@ public class AuthUseCase {
 	private final RegisterUserService registerUserService;
 
 	public JwtTokenInfo googleLogin(String authCode) {
-		// GoogleAccessToken accessToken = googleOAuthService.getAccessToken(authCode);
-		// GoogleUserProfile userProfile = googleOAuthService.getUserProfile(accessToken);
+		GoogleAccessToken accessToken = googleOAuthService.getAccessToken(authCode);
+		GoogleUserProfile userProfile = googleOAuthService.getUserProfile(accessToken);
 
 		User user = null;
 		try {
 			user = validateUserService.validateRegisteredUserByEmail(
-				"email", SocialCode.GOOGLE);
+				userProfile.email(), SocialCode.GOOGLE);
 		} catch (UserNotFoundException e) {
 			user = registerUserService.registerUser(
-				"email", SocialCode.GOOGLE, "refreshToken");
+				userProfile.email(), SocialCode.GOOGLE, accessToken.refreshToken());
 		}
 
 		return JwtTokenInfo.of(user.getUserId(), user.getUserRole());
