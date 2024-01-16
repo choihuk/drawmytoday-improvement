@@ -1,13 +1,14 @@
 package tipitapi.drawmytodayimprovement.user.repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import tipitapi.drawmytodayimprovement.domain.User;
+import tipitapi.drawmytodayimprovement.component.User;
 import tipitapi.drawmytodayimprovement.repository.UserRepository;
 import tipitapi.drawmytodayimprovement.user.mapper.UserMapper;
 
@@ -30,5 +31,11 @@ class UserEntityRepository implements UserRepository {
 	@Transactional
 	public User save(User user) {
 		return userMapper.toDomain(userJpaRepository.save(userMapper.toEntity(user)));
+	}
+
+	@Override
+	public Optional<User> findById(Long userId) {
+		return userJpaRepository.findById(userId)
+			.map(userMapper::toDomain);
 	}
 }

@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tipitapi.drawmytodayimprovement.common.BaseEntity;
@@ -44,8 +45,10 @@ public class EmotionEntity extends BaseEntity {
 	@Column(nullable = false, length = 200)
 	private String colorPrompt;
 
-	private EmotionEntity(String name, String color, boolean isActive, String emotionPrompt,
+	@Builder
+	private EmotionEntity(Long id, String name, String color, boolean isActive, String emotionPrompt,
 		String colorPrompt) {
+		this.id = id;
 		this.name = name;
 		this.color = color;
 		this.isActive = isActive;

@@ -2,7 +2,7 @@ package tipitapi.drawmytodayimprovement.user.mapper;
 
 import org.springframework.stereotype.Component;
 
-import tipitapi.drawmytodayimprovement.domain.User;
+import tipitapi.drawmytodayimprovement.component.User;
 import tipitapi.drawmytodayimprovement.user.entity.UserEntity;
 
 @Component

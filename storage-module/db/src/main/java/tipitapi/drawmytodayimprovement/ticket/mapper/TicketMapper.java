@@ -5,7 +5,7 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
-import tipitapi.drawmytodayimprovement.domain.Ticket;
+import tipitapi.drawmytodayimprovement.component.Ticket;
 import tipitapi.drawmytodayimprovement.ticket.entity.TicketEntity;
 import tipitapi.drawmytodayimprovement.user.entity.UserEntity;
 

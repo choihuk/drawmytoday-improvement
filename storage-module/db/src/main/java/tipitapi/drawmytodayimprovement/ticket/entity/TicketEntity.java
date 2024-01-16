@@ -20,7 +20,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tipitapi.drawmytodayimprovement.common.BaseEntity;
-import tipitapi.drawmytodayimprovement.domain.enumeration.TicketType;
+import tipitapi.drawmytodayimprovement.enumeration.TicketType;
 import tipitapi.drawmytodayimprovement.user.entity.UserEntity;
 
 @Entity

@@ -3,7 +3,7 @@ package tipitapi.drawmytodayimprovement.properties;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
-import tipitapi.drawmytodayimprovement.domain.utils.SystemEnv;
+import tipitapi.drawmytodayimprovement.utils.SystemEnv;
 
 @Getter
 @Component

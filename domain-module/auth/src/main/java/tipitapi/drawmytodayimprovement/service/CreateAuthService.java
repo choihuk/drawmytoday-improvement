@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import tipitapi.drawmytodayimprovement.domain.Auth;
+import tipitapi.drawmytodayimprovement.component.Auth;
 import tipitapi.drawmytodayimprovement.repository.AuthRepository;
 
 @Service

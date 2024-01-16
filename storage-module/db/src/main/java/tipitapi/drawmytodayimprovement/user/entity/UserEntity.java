@@ -19,8 +19,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tipitapi.drawmytodayimprovement.common.BaseEntityWithUpdate;
-import tipitapi.drawmytodayimprovement.domain.enumeration.SocialCode;
-import tipitapi.drawmytodayimprovement.domain.enumeration.UserRole;
+import tipitapi.drawmytodayimprovement.enumeration.SocialCode;
+import tipitapi.drawmytodayimprovement.enumeration.UserRole;
 
 @Entity
 @Table(name = "user")

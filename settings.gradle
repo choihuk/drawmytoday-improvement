@@ -11,9 +11,10 @@ include 'domain-module'
 include 'domain-module:auth'
 include 'domain-module:diary'
 include 'domain-module:user'
-include 'domain-module:reward'
+include 'domain-module:ticket'
 
-include 'api-module'
+include 'api-module:web'
+include 'api-module:outer'
 
 include 'storage-module:db'
 

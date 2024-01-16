@@ -3,15 +3,15 @@ package tipitapi.drawmytodayimprovement.usecase;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
-import tipitapi.drawmytodayimprovement.domain.User;
-import tipitapi.drawmytodayimprovement.domain.enumeration.SocialCode;
-import tipitapi.drawmytodayimprovement.domain.vo.JwtTokenInfo;
+import tipitapi.drawmytodayimprovement.component.User;
+import tipitapi.drawmytodayimprovement.enumeration.SocialCode;
 import tipitapi.drawmytodayimprovement.exception.UserNotFoundException;
 import tipitapi.drawmytodayimprovement.service.GoogleOAuthService;
 import tipitapi.drawmytodayimprovement.service.RegisterUserService;
 import tipitapi.drawmytodayimprovement.service.ValidateUserService;
 import tipitapi.drawmytodayimprovement.service.dto.GoogleAccessToken;
 import tipitapi.drawmytodayimprovement.service.dto.GoogleUserProfile;
+import tipitapi.drawmytodayimprovement.vo.JwtTokenInfo;
 
 @Component
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class AuthUseCase {
 
 		User user = null;
 		try {
-			user = validateUserService.validateRegisteredUserByEmail(
+			user = validateUserService.validateByEmailAndSocialCode(
 				userProfile.email(), SocialCode.GOOGLE);
 		} catch (UserNotFoundException e) {
 			user = registerUserService.registerUser(

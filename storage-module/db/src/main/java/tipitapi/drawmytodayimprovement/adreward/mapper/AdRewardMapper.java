@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 import tipitapi.drawmytodayimprovement.adreward.entity.AdRewardEntity;
-import tipitapi.drawmytodayimprovement.domain.AdReward;
+import tipitapi.drawmytodayimprovement.component.AdReward;
 import tipitapi.drawmytodayimprovement.user.entity.UserEntity;
 
 @Component

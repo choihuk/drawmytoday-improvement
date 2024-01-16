@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import tipitapi.drawmytodayimprovement.domain.User;
-import tipitapi.drawmytodayimprovement.domain.enumeration.SocialCode;
+import tipitapi.drawmytodayimprovement.component.User;
+import tipitapi.drawmytodayimprovement.enumeration.SocialCode;
 import tipitapi.drawmytodayimprovement.event.CreateAuthEvent;
 import tipitapi.drawmytodayimprovement.event.CreateJoinTicketEvent;
 import tipitapi.drawmytodayimprovement.repository.UserRepository;

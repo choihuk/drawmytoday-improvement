@@ -1,6 +1,6 @@
 package tipitapi.drawmytodayimprovement.service;
 
-import static tipitapi.drawmytodayimprovement.domain.exception.ErrorCode.*;
+import static tipitapi.drawmytodayimprovement.exception.ErrorCode.*;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
-import tipitapi.drawmytodayimprovement.domain.exception.BusinessException;
+import tipitapi.drawmytodayimprovement.exception.BusinessException;
 import tipitapi.drawmytodayimprovement.properties.GoogleProperties;
 import tipitapi.drawmytodayimprovement.service.dto.GoogleAccessToken;
 import tipitapi.drawmytodayimprovement.service.dto.GoogleUserProfile;

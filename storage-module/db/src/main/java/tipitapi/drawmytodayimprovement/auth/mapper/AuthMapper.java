@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 import tipitapi.drawmytodayimprovement.auth.entity.AuthEntity;
-import tipitapi.drawmytodayimprovement.domain.Auth;
+import tipitapi.drawmytodayimprovement.component.Auth;
 import tipitapi.drawmytodayimprovement.user.entity.UserEntity;
 
 @Component

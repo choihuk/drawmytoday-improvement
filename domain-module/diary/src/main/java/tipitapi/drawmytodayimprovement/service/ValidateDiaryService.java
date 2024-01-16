@@ -1,11 +1,13 @@
 package tipitapi.drawmytodayimprovement.service;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import tipitapi.drawmytodayimprovement.domain.Diary;
+import tipitapi.drawmytodayimprovement.component.Diary;
+import tipitapi.drawmytodayimprovement.exception.DiaryDateAlreadyExistsException;
 import tipitapi.drawmytodayimprovement.exception.DiaryNotFoundException;
 import tipitapi.drawmytodayimprovement.exception.NotOwnerOfDiaryException;
 import tipitapi.drawmytodayimprovement.repository.DiaryRepository;
@@ -22,5 +24,11 @@ public class ValidateDiaryService {
 			throw new NotOwnerOfDiaryException();
 		}
 		return diary;
+	}
+
+	public void validateDiaryNotExist(Long userId, LocalDate diaryDate) {
+		if (diaryRepository.existByUserIdAndDiaryDate(userId, diaryDate)) {
+			throw new DiaryDateAlreadyExistsException();
+		}
 	}
 }

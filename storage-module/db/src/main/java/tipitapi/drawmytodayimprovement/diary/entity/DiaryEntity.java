@@ -40,12 +40,12 @@ public class DiaryEntity extends BaseEntityWithUpdate {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
-	private UserEntity userEntity;
+	private UserEntity user;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "emotion_id", nullable = false)
-	private EmotionEntity emotionEntity;
+	private EmotionEntity emotion;
 
 	@NotNull
 	@Column(nullable = false)
@@ -71,15 +71,17 @@ public class DiaryEntity extends BaseEntityWithUpdate {
 	private boolean isTest;
 
 	@Builder
-	private DiaryEntity(LocalDateTime diaryDate, String notes, boolean isAi, String title,
-		String weather, boolean isTest) {
-		// this.user = user;
-		// this.emotion = emotion;
+	private DiaryEntity(Long id, UserEntity user,  EmotionEntity emotion,  LocalDateTime diaryDate,
+		String notes, boolean isAi, String title, String weather, LocalDateTime deletedAt, boolean isTest) {
+		this.id = id;
+		this.user = user;
+		this.emotion = emotion;
 		this.diaryDate = diaryDate;
 		this.notes = notes;
 		this.isAi = isAi;
 		this.title = title;
 		this.weather = weather;
+		this.deletedAt = deletedAt;
 		this.isTest = isTest;
 	}
 }
