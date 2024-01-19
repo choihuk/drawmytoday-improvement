@@ -1,16 +1,16 @@
 package tipitapi.drawmytodayimprovement.enumeration;
 
 public enum TicketType {
-    JOIN("JOIN"),
-    AD_REWARD("AD_REWARD");
+	JOIN("JOIN"),
+	AD_REWARD("AD_REWARD");
 
-    private final String key;
+	private final String key;
 
-    TicketType(String key) {
-        this.key = key;
-    }
+	TicketType(String key) {
+		this.key = key;
+	}
 
-    public String getKey() {
-        return key;
-    }
+	public String getKey() {
+		return key;
+	}
 }

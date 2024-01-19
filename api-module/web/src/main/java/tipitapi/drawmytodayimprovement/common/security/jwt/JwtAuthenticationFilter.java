@@ -25,45 +25,45 @@ import tipitapi.drawmytodayimprovement.common.utils.HeaderUtils;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider jwtTokenProvider;
-    private final String[] permitAllEndpointList;
-    private final AntPathMatcher pathMatcher = new AntPathMatcher();
+	private final JwtTokenProvider jwtTokenProvider;
+	private final String[] permitAllEndpointList;
+	private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-        FilterChain filterChain) throws ServletException, IOException {
-        authentication();
-        filterChain.doFilter(request, response);
-    }
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+		FilterChain filterChain) throws ServletException, IOException {
+		authentication();
+		filterChain.doFilter(request, response);
+	}
 
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        String requestURI = request.getRequestURI();
+	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) {
+		String requestURI = request.getRequestURI();
 
-        for (String permitAllEndpoint : permitAllEndpointList) {
-            if (pathMatcher.match(permitAllEndpoint, requestURI)) {
-                return true;
-            }
-        }
-        return false;
-    }
+		for (String permitAllEndpoint : permitAllEndpointList) {
+			if (pathMatcher.match(permitAllEndpoint, requestURI)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    /**
-     * @throws TokenNotFoundException      - 헤더에 토큰이 없는 경우
-     * @throws InvalidTokenException       - 헤더에 토큰이 있지만 유효하지 않은 경우
-     * @throws ExpiredAccessTokenException - 헤더에 토큰이 있지만 만료된 경우
-     */
-    private void authentication() {
-        String accessToken = HeaderUtils.getJwtToken(getRequest(), JwtType.ACCESS);
+	/**
+	 * @throws TokenNotFoundException      - 헤더에 토큰이 없는 경우
+	 * @throws InvalidTokenException       - 헤더에 토큰이 있지만 유효하지 않은 경우
+	 * @throws ExpiredAccessTokenException - 헤더에 토큰이 있지만 만료된 경우
+	 */
+	private void authentication() {
+		String accessToken = HeaderUtils.getJwtToken(getRequest(), JwtType.ACCESS);
 
-        jwtTokenProvider.validAccessToken(accessToken);
+		jwtTokenProvider.validAccessToken(accessToken);
 
-        Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
+		Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+	}
 
-    private HttpServletRequest getRequest() {
-        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        return servletRequestAttributes.getRequest();
-    }
+	private HttpServletRequest getRequest() {
+		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
+		return servletRequestAttributes.getRequest();
+	}
 }

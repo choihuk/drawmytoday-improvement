@@ -1,5 +1,7 @@
 package tipitapi.drawmytodayimprovement.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,5 +24,9 @@ public class PromptService {
 	@Transactional
 	public Prompt createFailedPrompt(String prompt) {
 		return promptRepository.save(Prompt.createFailedPrompt(prompt));
+	}
+
+	public Optional<Prompt> get(Long diaryId) {
+		return promptRepository.findByDiaryId(diaryId);
 	}
 }

@@ -27,4 +27,8 @@ public class Image {
 			.isSelected(isSelected)
 			.build();
 	}
+
+	public void convertImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 }

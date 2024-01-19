@@ -19,6 +19,8 @@ subprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 
+    apply from: "${rootDir}/config/checkstyle/checkstyle.gradle"
+
     dependencies {
         implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.5'
         implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.5'

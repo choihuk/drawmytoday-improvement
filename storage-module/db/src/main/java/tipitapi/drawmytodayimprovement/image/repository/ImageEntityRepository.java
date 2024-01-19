@@ -1,5 +1,7 @@
 package tipitapi.drawmytodayimprovement.image.repository;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,5 +22,21 @@ class ImageEntityRepository implements ImageRepository {
 	@Transactional
 	public Image save(Image image) {
 		return imageMapper.toDomain(imageJpaRepository.save(imageMapper.toEntity(image)));
+	}
+
+	@Override
+	public List<Image> findAll(Long diaryId) {
+		return imageJpaRepository.findAllByDiaryId(diaryId)
+			.stream()
+			.map(imageMapper::toDomain)
+			.toList();
+	}
+
+	@Override
+	public List<Image> findAllLatestSorted(Long diaryId) {
+		return imageJpaRepository.findAllByDiaryIdOrderByCreatedAtDesc(diaryId)
+			.stream()
+			.map(imageMapper::toDomain)
+			.toList();
 	}
 }

@@ -27,11 +27,8 @@ class DiaryEntityRepository implements DiaryRepository {
 
 	@Override
 	public Optional<Diary> findById(Long diaryId) {
-		// return diaryJpaRepository.findById(diaryId)
-		// 	.map(diaryEntity -> diaryMapper.toDomain(
-		// 		diaryEntity, diaryEntity.getEmotion()
-		// 	));
-		return null;
+		return diaryJpaRepository.findById(diaryId)
+			.map(diaryMapper::toDomain);
 	}
 
 	@Override

@@ -1,8 +1,14 @@
 package tipitapi.drawmytodayimprovement.domain.diary.response;
 
-public record CreateDiaryResponse(Long id) {
+import java.util.Objects;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "일기 생성 Response")
+public record CreateDiaryResponse(@Schema(description = "일기 ID", requiredMode = Schema.RequiredMode.REQUIRED)
+								  Long id) {
 
 	public static CreateDiaryResponse of(Long id) {
-		return new CreateDiaryResponse(id);
+		return new CreateDiaryResponse(Objects.requireNonNull(id));
 	}
 }

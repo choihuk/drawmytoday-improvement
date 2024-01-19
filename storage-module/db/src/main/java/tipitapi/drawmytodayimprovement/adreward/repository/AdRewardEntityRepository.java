@@ -15,5 +15,4 @@ class AdRewardEntityRepository implements AdRewardRepository {
 	private final AdRewardJapRepository adRewardJapRepository;
 	private final AdRewardMapper adRewardMapper;
 
-
 }

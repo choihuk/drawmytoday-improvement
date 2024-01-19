@@ -4,7 +4,7 @@ import tipitapi.drawmytodayimprovement.exception.ErrorCode;
 
 public class ExpiredAccessTokenException extends TokenException {
 
-    public ExpiredAccessTokenException() {
-        super(ErrorCode.EXPIRED_JWT_ACCESS_TOKEN);
-    }
+	public ExpiredAccessTokenException() {
+		super(ErrorCode.EXPIRED_JWT_ACCESS_TOKEN);
+	}
 }

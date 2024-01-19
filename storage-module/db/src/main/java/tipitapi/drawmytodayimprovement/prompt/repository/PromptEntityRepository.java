@@ -1,5 +1,7 @@
 package tipitapi.drawmytodayimprovement.prompt.repository;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,5 +22,11 @@ class PromptEntityRepository implements PromptRepository {
 	@Transactional
 	public Prompt save(Prompt prompt) {
 		return promptMapper.toDomain(promptJpaRepository.save(promptMapper.toEntity(prompt)));
+	}
+
+	@Override
+	public Optional<Prompt> findByDiaryId(Long diaryId) {
+		return promptJpaRepository.findByDiaryId(diaryId)
+			.map(promptMapper::toDomain);
 	}
 }

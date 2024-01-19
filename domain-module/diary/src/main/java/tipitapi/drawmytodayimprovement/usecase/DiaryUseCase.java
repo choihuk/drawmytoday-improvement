@@ -7,11 +7,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import tipitapi.drawmytodayimprovement.component.AllDiaryElement;
 import tipitapi.drawmytodayimprovement.component.CreateDiaryElement;
 import tipitapi.drawmytodayimprovement.component.Diary;
 import tipitapi.drawmytodayimprovement.component.Emotion;
+import tipitapi.drawmytodayimprovement.component.Image;
+import tipitapi.drawmytodayimprovement.component.Prompt;
 import tipitapi.drawmytodayimprovement.exception.ImageGeneratorException;
 import tipitapi.drawmytodayimprovement.service.ImageGeneratorService;
+import tipitapi.drawmytodayimprovement.service.ImageService;
 import tipitapi.drawmytodayimprovement.service.PromptService;
 import tipitapi.drawmytodayimprovement.service.PromptTextService;
 import tipitapi.drawmytodayimprovement.service.SaveDiaryService;
@@ -32,11 +36,16 @@ public class DiaryUseCase {
 	private final PromptService promptService;
 	private final SaveDiaryService saveDiaryService;
 	private final UserService userService;
+	private final ImageService imageService;
 
 	@Transactional(readOnly = true)
-	public Diary getDiary(Long userId, Long diaryId) {
+	public AllDiaryElement getDiary(Long userId, Long diaryId) {
 		validateUserService.validateByUserId(userId);
-		return validateDiaryService.validateDiaryById(diaryId, userId);
+		Diary diary = validateDiaryService.validateDiaryById(diaryId, userId);
+		Emotion emotion = validateEmotionService.validateByDiaryId(diaryId);
+		Prompt prompt = promptService.get(diaryId).orElse(Prompt.createEmptyPrompt());
+		List<Image> images = imageService.getLatestSortedImages(diaryId);
+		return AllDiaryElement.of(diary, emotion, prompt, images);
 	}
 
 	public Long createDiary(Long userId, Long emotionId, CreateDiaryElement diaryElement, LocalTime userTime) {

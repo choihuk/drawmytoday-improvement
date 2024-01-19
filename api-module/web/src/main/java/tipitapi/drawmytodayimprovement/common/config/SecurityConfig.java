@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
+import tipitapi.drawmytodayimprovement.common.log.MDCRequestLoggingFilter;
 import tipitapi.drawmytodayimprovement.common.security.jwt.JwtAuthenticationEntryPoint;
 import tipitapi.drawmytodayimprovement.common.security.jwt.JwtAuthenticationFilter;
 import tipitapi.drawmytodayimprovement.common.security.jwt.JwtTokenProvider;
@@ -21,50 +22,50 @@ import tipitapi.drawmytodayimprovement.common.security.jwt.JwtTokenProvider;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtTokenProvider jwtTokenProvider;
+	private final JwtTokenProvider jwtTokenProvider;
 
-    private final String[] permitAllEndpointList = {
-        "/swagger-ui/**",
-        "/v3/api-docs/**",
-        "/oauth2/login",
-        "/oauth2/google/login",
-        "/oauth2/apple/login",
-        "/oauth2/refresh",
-        "/oauth2/expiredJwt",
-        "/health/server",
-        "/actuator/**"
-    };
+	private final String[] permitAllEndpointList = {
+		"/swagger-ui/**",
+		"/v3/api-docs/**",
+		"/oauth2/login",
+		"/oauth2/google/login",
+		"/oauth2/apple/login",
+		"/oauth2/refresh",
+		"/oauth2/expiredJwt",
+		"/health/server",
+		"/actuator/**"
+	};
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
+	@Bean
+	public ObjectMapper objectMapper() {
+		return new ObjectMapper();
+	}
 
-    /**
-     * csrf, rememberMe, logout, formLogin, httpBasic 비활성화
-     */
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-            .rememberMe().disable()
-            .logout().disable()
-            .formLogin().disable()
-            .httpBasic().disable()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, permitAllEndpointList),
-                UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(new JwtAuthenticationEntryPoint(objectMapper()),
-                JwtAuthenticationFilter.class);
-            // .addFilterBefore(new MDCRequestLoggingFilter(), JwtAuthenticationEntryPoint.class);
+	/**
+	 * csrf, rememberMe, logout, formLogin, httpBasic 비활성화
+	 */
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.csrf().disable()
+			.rememberMe().disable()
+			.logout().disable()
+			.formLogin().disable()
+			.httpBasic().disable()
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and()
+			.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, permitAllEndpointList),
+				UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(new JwtAuthenticationEntryPoint(objectMapper()),
+				JwtAuthenticationFilter.class)
+			.addFilterBefore(new MDCRequestLoggingFilter(), JwtAuthenticationEntryPoint.class);
 
-        return http.build();
-    }
+		return http.build();
+	}
 
 }

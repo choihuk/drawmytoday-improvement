@@ -16,4 +16,8 @@ public class ValidateEmotionService {
 	public Emotion validateById(Long emotionId) {
 		return emotionRepository.findById(emotionId).orElseThrow(EmotionNotFoundException::new);
 	}
+
+	public Emotion validateByDiaryId(Long diaryId) {
+		return emotionRepository.findByDiaryId(diaryId).orElseThrow(EmotionNotFoundException::new);
+	}
 }

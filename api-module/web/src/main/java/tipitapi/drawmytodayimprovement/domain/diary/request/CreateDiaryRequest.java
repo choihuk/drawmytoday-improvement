@@ -8,22 +8,28 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import tipitapi.drawmytodayimprovement.common.validator.ValidDiaryDate;
 import tipitapi.drawmytodayimprovement.component.CreateDiaryElement;
 
-public record CreateDiaryRequest(@NotNull Long emotionId,
-								 String keyword,
-								 @Size(max = 6010) String notes,
+public record CreateDiaryRequest(@Schema(description = "감정 ID")
 								 @NotNull
-								 // @ValidDiaryDate
+								 Long emotionId,
+								 @Schema(description = "일기 키워드", nullable = true)
+								 String keyword,
+								 @Schema(description = "일기 내용", nullable = true)
+								 @Size(max = 6010)
+								 String notes,
+								 @Schema(description = "일기 날짜")
+								 @NotNull
+								 @ValidDiaryDate
 								 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-								 @JsonSerialize(using = LocalDateSerializer.class)
 								 @JsonDeserialize(using = LocalDateDeserializer.class)
 								 LocalDate diaryDate,
+								 @Schema(description = "현재 유저 시간", nullable = true, example = "12:00:00")
 								 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
 								 @JsonDeserialize(using = LocalTimeDeserializer.class)
 								 LocalTime userTime) {

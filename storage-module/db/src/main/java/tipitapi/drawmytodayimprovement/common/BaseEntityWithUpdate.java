@@ -17,8 +17,8 @@ import lombok.Getter;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntityWithUpdate extends BaseEntity {
 
-    @NotNull
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
+	@NotNull
+	@LastModifiedDate
+	@Column(nullable = false)
+	private LocalDateTime updatedAt;
 }

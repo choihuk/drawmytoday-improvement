@@ -71,7 +71,7 @@ public class DiaryEntity extends BaseEntityWithUpdate {
 	private boolean isTest;
 
 	@Builder
-	private DiaryEntity(Long id, UserEntity user,  EmotionEntity emotion,  LocalDateTime diaryDate,
+	private DiaryEntity(Long id, UserEntity user, EmotionEntity emotion, LocalDateTime diaryDate,
 		String notes, boolean isAi, String title, String weather, LocalDateTime deletedAt, boolean isTest) {
 		this.id = id;
 		this.user = user;

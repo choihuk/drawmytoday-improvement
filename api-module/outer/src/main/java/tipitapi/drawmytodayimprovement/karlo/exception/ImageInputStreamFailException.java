@@ -5,11 +5,11 @@ import tipitapi.drawmytodayimprovement.exception.ImageGeneratorException;
 
 public class ImageInputStreamFailException extends ImageGeneratorException {
 
-    public ImageInputStreamFailException() {
-        super(ErrorCode.IMAGE_INPUT_STREAM_FAIL);
-    }
+	public ImageInputStreamFailException() {
+		super(ErrorCode.IMAGE_INPUT_STREAM_FAIL);
+	}
 
-    public ImageInputStreamFailException(Throwable throwable) {
-        super(ErrorCode.IMAGE_INPUT_STREAM_FAIL, throwable);
-    }
+	public ImageInputStreamFailException(Throwable throwable) {
+		super(ErrorCode.IMAGE_INPUT_STREAM_FAIL, throwable);
+	}
 }

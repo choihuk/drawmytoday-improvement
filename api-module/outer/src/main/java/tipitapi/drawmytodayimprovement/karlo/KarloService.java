@@ -42,7 +42,7 @@ class KarloService implements ImageGeneratorService {
 			HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create(karloImageCreateUrl))
 				.header("Content-Type", "application/json")
-				// .header("Authorization", "KakaoAK " + kakaoApiKey)
+				.header("Authorization", "KakaoAK " + kakaoApiKey)
 				.POST(HttpRequest.BodyPublishers.ofString(
 						objectMapper.writeValueAsString(
 							CreateKarloImageRequest.createRequest(prompt, negativePrompt)

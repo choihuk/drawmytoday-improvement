@@ -37,4 +37,8 @@ public class Prompt {
 			.isSuccess(false)
 			.build();
 	}
+
+	public static Prompt createEmptyPrompt() {
+		return Prompt.builder().build();
+	}
 }

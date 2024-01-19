@@ -55,4 +55,11 @@ public class Diary {
 	public String getNotes() {
 		return encryptor.decrypt(notes);
 	}
+
+	/**
+	 * mapper에 제공을 목적으로 만든 메서드
+	 */
+	public String getRowNotes() {
+		return notes;
+	}
 }

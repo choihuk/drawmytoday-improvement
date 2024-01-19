@@ -10,4 +10,6 @@ import tipitapi.drawmytodayimprovement.component.Emotion;
 public interface EmotionRepository {
 
 	Optional<Emotion> findById(Long diaryId);
+
+	Optional<Emotion> findByDiaryId(Long diaryId);
 }

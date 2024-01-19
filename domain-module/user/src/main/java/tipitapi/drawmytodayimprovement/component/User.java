@@ -25,9 +25,9 @@ public class User {
 
 	public static User create(String email, SocialCode socialCode) {
 		return User.builder()
-				.email(email)
-				.socialCode(socialCode)
-				.userRole(UserRole.USER)
-				.build();
+			.email(email)
+			.socialCode(socialCode)
+			.userRole(UserRole.USER)
+			.build();
 	}
 }

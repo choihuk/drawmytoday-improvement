@@ -18,7 +18,6 @@ public class RegisterUserService {
 	private final UserRepository userRepository;
 	private final ApplicationEventPublisher applicationEventPublisher;
 
-
 	@Transactional
 	public User registerUser(String email, SocialCode socialCode, String refreshToken) {
 		User user = userRepository.save(User.create(email, socialCode));

@@ -1,0 +1,22 @@
+apply plugin: 'checkstyle'
+
+// checkstyle
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
+
+checkstyle {
+    configFile = file("${rootDir}/config/checkstyle/naver-checkstyle-rules.xml")
+    configProperties = [suppressionFile: file("${rootDir}/config/checkstyle/naver-checkstyle-suppressions.xml")]
+    // querydsl Q파일 제외를 위한 설정
+    sourceSets = [sourceSets.main]
+}
+
+// querydsl Q파일 제외를 위한 설정
+checkstyleMain.source = fileTree('src/main/java')

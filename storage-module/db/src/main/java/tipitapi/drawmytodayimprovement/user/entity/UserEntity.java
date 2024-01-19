@@ -52,7 +52,7 @@ public class UserEntity extends BaseEntityWithUpdate {
 
 	@Builder
 	private UserEntity(Long id, String email, SocialCode socialCode, LocalDateTime lastDiaryDate,
-			UserRole userRole, LocalDateTime deletedAt) {
+		UserRole userRole, LocalDateTime deletedAt) {
 		this.id = id;
 		this.email = email;
 		this.socialCode = socialCode;

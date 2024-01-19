@@ -6,7 +6,8 @@ spring:
     include: oauth
   config:
     import:
-      - file:./storage-module/db/src/main/resources/application-db.yml
+      - db.yml
+      - monitoring.yml
 
 
 ---

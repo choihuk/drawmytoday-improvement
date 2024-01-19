@@ -19,3 +19,6 @@ include 'api-module:outer'
 include 'storage-module:db'
 
 include 'common-module'
+
+include 'support-module:logging'
+include 'support-module:monitoring'

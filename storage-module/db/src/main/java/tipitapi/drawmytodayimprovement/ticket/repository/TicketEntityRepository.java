@@ -42,6 +42,6 @@ class TicketEntityRepository implements TicketRepository {
 				.where(ticketEntity.usedAt.isNull()
 					.and(ticketEntity.user.id.eq(userId)))
 				.fetchFirst()
-			).map(ticketMapper::toDomain);
+		).map(ticketMapper::toDomain);
 	}
 }

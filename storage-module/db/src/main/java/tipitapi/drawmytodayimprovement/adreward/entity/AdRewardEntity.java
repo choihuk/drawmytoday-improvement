@@ -36,7 +36,6 @@ public class AdRewardEntity extends BaseEntity {
 	@JoinColumn(name = "user_id", nullable = false)
 	private UserEntity user;
 
-
 	private LocalDateTime usedAt;
 
 	@Builder
