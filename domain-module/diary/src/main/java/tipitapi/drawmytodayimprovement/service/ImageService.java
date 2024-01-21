@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import tipitapi.drawmytodayimprovement.component.Image;
 import tipitapi.drawmytodayimprovement.exception.ImageNotFoundException;
 import tipitapi.drawmytodayimprovement.repository.ImageRepository;
+import tipitapi.drawmytodayimprovement.storage.PreSignedUrlService;
 
 @Service
 @RequiredArgsConstructor

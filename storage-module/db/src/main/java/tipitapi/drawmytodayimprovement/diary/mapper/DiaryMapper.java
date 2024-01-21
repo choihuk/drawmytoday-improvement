@@ -33,7 +33,6 @@ public class DiaryMapper {
 			.build();
 	}
 
-	// TODO: 노트 암호화 이슈
 	public DiaryEntity toEntity(Diary diary) {
 		return DiaryEntity.builder()
 			.id(diary.getDiaryId())

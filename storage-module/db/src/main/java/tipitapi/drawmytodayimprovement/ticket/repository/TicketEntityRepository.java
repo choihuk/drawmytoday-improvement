@@ -44,4 +44,10 @@ class TicketEntityRepository implements TicketRepository {
 				.fetchFirst()
 		).map(ticketMapper::toDomain);
 	}
+
+	@Override
+	@Transactional
+	public Ticket save(Ticket ticket) {
+		return ticketMapper.toDomain(ticketJpaRepository.save(ticketMapper.toEntity(ticket)));
+	}
 }

@@ -12,4 +12,6 @@ public interface TicketRepository {
 	List<Ticket> saveAll(List<Ticket> tickets);
 
 	Optional<Ticket> findValidTicket(Long userId);
+
+	Ticket save(Ticket ticket);
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import tipitapi.drawmytodayimprovement.component.Ticket;
 import tipitapi.drawmytodayimprovement.exception.ValidTicketNotExistsException;
 import tipitapi.drawmytodayimprovement.repository.TicketRepository;
 
@@ -14,8 +15,8 @@ public class ValidateTicketService {
 
 	private final TicketRepository ticketRepository;
 
-	public void validateDrawable(Long userId) {
-		ticketRepository.findValidTicket(userId)
+	public Ticket validateAvailableTicketLeft(Long userId) {
+		return ticketRepository.findValidTicket(userId)
 			.orElseThrow(ValidTicketNotExistsException::new);
 	}
 }

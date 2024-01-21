@@ -15,6 +15,7 @@ import tipitapi.drawmytodayimprovement.component.Diary;
 import tipitapi.drawmytodayimprovement.component.Image;
 import tipitapi.drawmytodayimprovement.repository.DiaryRepository;
 import tipitapi.drawmytodayimprovement.repository.ImageRepository;
+import tipitapi.drawmytodayimprovement.storage.ImageUploadService;
 
 @Service
 @RequiredArgsConstructor

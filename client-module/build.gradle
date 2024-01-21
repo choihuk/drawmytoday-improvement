@@ -1,0 +1,10 @@
+dependencies {
+    implementation project(':common-module')
+
+    // AWS
+    implementation platform('software.amazon.awssdk:bom:2.20.26')
+    implementation 'software.amazon.awssdk:s3'
+
+    // Spring
+    implementation 'org.springframework:spring-context'
+}

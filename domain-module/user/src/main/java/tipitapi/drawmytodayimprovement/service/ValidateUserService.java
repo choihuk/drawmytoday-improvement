@@ -1,13 +1,11 @@
 package tipitapi.drawmytodayimprovement.service;
 
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import tipitapi.drawmytodayimprovement.component.User;
 import tipitapi.drawmytodayimprovement.enumeration.SocialCode;
-import tipitapi.drawmytodayimprovement.event.ValidateDrawableEvent;
 import tipitapi.drawmytodayimprovement.exception.UserNotFoundException;
 import tipitapi.drawmytodayimprovement.repository.UserRepository;
 
@@ -17,7 +15,6 @@ import tipitapi.drawmytodayimprovement.repository.UserRepository;
 public class ValidateUserService {
 
 	private final UserRepository userRepository;
-	private final ApplicationEventPublisher applicationEventPublisher;
 
 	public User validateByUserId(Long userId) {
 		return userRepository.findById(userId)
@@ -29,9 +26,5 @@ public class ValidateUserService {
 			.filter(user -> user.getSocialCode() == socialCode)
 			.findFirst()
 			.orElseThrow(UserNotFoundException::new);
-	}
-
-	public void validateDrawable(Long userId) {
-		applicationEventPublisher.publishEvent(ValidateDrawableEvent.of(userId));
 	}
 }

@@ -20,6 +20,7 @@ public class TicketMapper {
 			.ticketId(entity.getId())
 			.createdAt(entity.getCreatedAt())
 			.userId(entity.getUser().getId())
+			.ticketType(entity.getTicketType())
 			.usedAt(entity.getUsedAt())
 			.build();
 	}

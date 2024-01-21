@@ -13,11 +13,9 @@ include 'domain-module:diary'
 include 'domain-module:user'
 include 'domain-module:ticket'
 
-include 'api-module:web'
-include 'api-module:outer'
-
+include 'api-module'
+include 'client-module'
 include 'storage-module:db'
-
 include 'common-module'
 
 include 'support-module:logging'

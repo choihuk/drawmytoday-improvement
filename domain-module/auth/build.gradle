@@ -1,4 +1,4 @@
 dependencies {
-
     implementation project(':domain-module:user')
+    implementation project(':client-module')
 }
