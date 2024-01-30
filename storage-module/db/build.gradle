@@ -1,8 +1,8 @@
 dependencies {
-    compileOnly project(':domain-module:auth')
-    compileOnly project(':domain-module:diary')
-    compileOnly project(':domain-module:user')
-    compileOnly project(':domain-module:ticket')
+    compileAndTestCompileOnly(':domain-module:auth')
+    compileAndTestCompileOnly(':domain-module:diary')
+    compileAndTestCompileOnly(':domain-module:user')
+    compileAndTestCompileOnly(':domain-module:ticket')
     implementation project(':common-module')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -35,4 +35,11 @@ sourceSets {
 // gradle clean 시에 QClass 디렉토리 삭제
 clean {
     delete file(generated)
+}
+
+def compileAndTestCompileOnly(projectPath) {
+    dependencies {
+        compileOnly project(projectPath)
+        testCompileOnly project(projectPath)
+    }
 }
