@@ -1,6 +1,7 @@
 package tipitapi.drawmytodayimprovement.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,6 @@ public interface ImageRepository {
 	List<Image> findAll(Long diaryId);
 
 	List<Image> findAllLatestSorted(Long diaryId);
+
+	Optional<Image> findRecentByDiary(Long diaryId);
 }

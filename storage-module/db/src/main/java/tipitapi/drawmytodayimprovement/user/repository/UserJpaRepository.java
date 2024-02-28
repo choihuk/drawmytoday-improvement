@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import tipitapi.drawmytodayimprovement.user.entity.UserEntity;
 
-interface UserJpaRepository extends JpaRepository<UserEntity, Long> {
+public interface UserJpaRepository extends JpaRepository<UserEntity, Long> {
 
 	List<UserEntity> findAllByEmail(String email);
 }

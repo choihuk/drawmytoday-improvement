@@ -1,9 +1,14 @@
 package tipitapi.drawmytodayimprovement.image.repository;
 
+import static tipitapi.drawmytodayimprovement.image.entity.QImageEntity.*;
+
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
 import tipitapi.drawmytodayimprovement.component.Image;
@@ -17,6 +22,7 @@ class ImageEntityRepository implements ImageRepository {
 
 	private final ImageJpaRepository imageJpaRepository;
 	private final ImageMapper imageMapper;
+	private final JPAQueryFactory queryFactory;
 
 	@Override
 	@Transactional
@@ -38,5 +44,15 @@ class ImageEntityRepository implements ImageRepository {
 			.stream()
 			.map(imageMapper::toDomain)
 			.toList();
+	}
+
+	@Override
+	public Optional<Image> findRecentByDiary(Long diaryId) {
+		return Optional.ofNullable(queryFactory
+				.selectFrom(imageEntity)
+				.where(imageEntity.diary.id.eq(diaryId).and(imageEntity.deletedAt.isNull()))
+				.orderBy(imageEntity.createdAt.desc())
+				.fetchFirst())
+			.map(imageMapper::toDomain);
 	}
 }

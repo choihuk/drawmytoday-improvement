@@ -34,7 +34,7 @@ class R2Service implements ImageUploadService, PreSignedUrlService {
 
 	@Override
 	public String getCustomDomainUrl(String objectKey) {
-		return "https://choihyeok.site/" + objectKey;
+		return "https://tipitapi.store/" + objectKey;
 	}
 
 	private PutObjectRequest buildPutObjectRequest(String filePath) {

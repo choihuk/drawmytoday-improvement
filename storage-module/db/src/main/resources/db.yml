@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: storage-module-db
   jpa:
     open-in-view: false
     hibernate:

@@ -35,13 +35,6 @@ public record CreateDiaryRequest(@Schema(description = "감정 ID")
 								 LocalTime userTime) {
 
 	public CreateDiaryElement toCreateDiaryElement() {
-		return new CreateDiaryElement(keyword, notes, diaryDate);
-	}
-
-	public LocalTime userTime() {
-		if (userTime == null) {
-			return LocalTime.now();
-		}
-		return userTime;
+		return new CreateDiaryElement(keyword, notes, diaryDate, userTime);
 	}
 }

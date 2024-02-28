@@ -13,6 +13,7 @@ public class Diary {
 	private Long diaryId;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	private LocalDateTime deletedAt;
 	private Long emotionId;
 	private Long userId;
 	private LocalDateTime diaryDate;
@@ -20,7 +21,6 @@ public class Diary {
 	private boolean isAi;
 	private String title;
 	private String weather;
-	private LocalDateTime deletedAt;
 	private boolean isTest;
 
 	@Builder
@@ -41,12 +41,13 @@ public class Diary {
 		this.isTest = isTest;
 	}
 
-	public static Diary create(Long userId, Long emotionId, LocalDateTime diaryDateTime, String notes) {
+	public static Diary create(Long userId, Long emotionId, CreateDiaryElement createDiaryElement) {
+		LocalDateTime diaryDateTime = createDiaryElement.diaryDate().atTime(createDiaryElement.userTime());
 		return Diary.builder()
 			.userId(userId)
 			.emotionId(emotionId)
 			.diaryDate(diaryDateTime)
-			.notes(encryptor.encrypt(notes))
+			.notes(encryptor.encrypt(createDiaryElement.notes()))
 			.isAi(true)
 			.isTest(false)
 			.build();
@@ -57,9 +58,13 @@ public class Diary {
 	}
 
 	/**
-	 * mapper에 제공을 목적으로 만든 메서드
+	 * @note mapper에 제공을 목적으로 만든 메서드
 	 */
 	public String getRowNotes() {
 		return notes;
+	}
+
+	public void updateNotes(String notes) {
+		this.notes = encryptor.encrypt(notes);
 	}
 }

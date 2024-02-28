@@ -31,4 +31,8 @@ public class Image {
 	public void convertImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+
+	public void makeMainImage() {
+		this.isSelected = true;
+	}
 }

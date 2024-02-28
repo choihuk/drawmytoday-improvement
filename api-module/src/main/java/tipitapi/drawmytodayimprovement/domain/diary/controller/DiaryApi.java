@@ -1,12 +1,16 @@
 package tipitapi.drawmytodayimprovement.domain.diary.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -19,8 +23,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import tipitapi.drawmytodayimprovement.common.dto.SuccessResponse;
 import tipitapi.drawmytodayimprovement.common.resolver.AuthUser;
 import tipitapi.drawmytodayimprovement.domain.diary.request.CreateDiaryRequest;
+import tipitapi.drawmytodayimprovement.domain.diary.request.UpdateDiaryRequest;
 import tipitapi.drawmytodayimprovement.domain.diary.response.CreateDiaryResponse;
 import tipitapi.drawmytodayimprovement.domain.diary.response.GetDiaryResponse;
+import tipitapi.drawmytodayimprovement.domain.diary.response.GetMonthlyDiaryResponse;
 import tipitapi.drawmytodayimprovement.vo.JwtTokenInfo;
 
 @Tag(name = "Diary", description = "일기 API")
@@ -75,5 +81,47 @@ public interface DiaryApi {
 	ResponseEntity<SuccessResponse<GetDiaryResponse>> getDiary(
 		@Parameter(description = "일기 id", in = ParameterIn.PATH) @PathVariable("id") Long diaryId,
 		@AuthUser JwtTokenInfo jwtTokenInfo
+	);
+
+	@Operation(summary = "월별 일기 목록", description = "메인 화면의 캘린더 뷰에서 사용하는, 월별 일기 목록을 반환하는 API")
+	@ApiResponses(value = {
+		@ApiResponse(
+			responseCode = "200",
+			description = "입력한 연도와 월에 해당하는 일기 목록을 반환한다."),
+		@ApiResponse(
+			responseCode = "400",
+			description = "C001 : month 값이 1~12 사이의 정수가 아닙니다.",
+			content = @Content(schema = @Schema(hidden = true))),
+		@ApiResponse(
+			responseCode = "404",
+			description = "U001: 해당 토큰의 유저를 찾을 수 없습니다.",
+			content = @Content(schema = @Schema(hidden = true))),
+	})
+	@GetMapping("/calendar/monthly")
+	ResponseEntity<SuccessResponse<List<GetMonthlyDiaryResponse>>> getMonthlyDiaries(
+		@Parameter(description = "조회할 연도", in = ParameterIn.QUERY) @RequestParam("year") int year,
+		@Parameter(description = "조회할 달", in = ParameterIn.QUERY) @RequestParam("month") int month,
+		@AuthUser JwtTokenInfo tokenInfo
+	);
+
+	@Operation(summary = "일기 수정", description = "주어진 일기의 내용을 수정한다.")
+	@ApiResponses(value = {
+		@ApiResponse(
+			responseCode = "204",
+			description = "성공적으로 일기 내용을 수정함"),
+		@ApiResponse(
+			responseCode = "403",
+			description = "D002 : 자신의 일기에만 접근할 수 있습니다.",
+			content = @Content(schema = @Schema(hidden = true))),
+		@ApiResponse(
+			responseCode = "404",
+			description = "D001 : 일기를 찾을 수 없습니다.",
+			content = @Content(schema = @Schema(hidden = true))),
+	})
+	@PutMapping("/{id}")
+	ResponseEntity<Void> updateDiaryNotes(
+		@RequestBody @Valid UpdateDiaryRequest updateDiaryRequest,
+		@Parameter(description = "일기 id", in = ParameterIn.PATH) @PathVariable("id") Long diaryId,
+		@AuthUser JwtTokenInfo tokenInfo
 	);
 }

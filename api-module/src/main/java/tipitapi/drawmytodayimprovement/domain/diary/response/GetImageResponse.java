@@ -23,10 +23,14 @@ public record GetImageResponse(@Schema(description = "이미지 id", requiredMod
 							   @Schema(description = "이미지 URL", requiredMode = RequiredMode.REQUIRED)
 							   String url) {
 
+	public GetImageResponse {
+		Objects.requireNonNull(id);
+		Objects.requireNonNull(createdAt);
+		Objects.requireNonNull(url);
+	}
+
 	public static GetImageResponse of(Image image) {
-		Long imageId = Objects.requireNonNull(image.getImageId());
-		LocalDateTime createdAt = Objects.requireNonNull(image.getCreatedAt());
-		String imageUrl = Objects.requireNonNull(image.getImageUrl());
-		return new GetImageResponse(imageId, createdAt, image.isSelected(), imageUrl);
+		return new GetImageResponse(image.getImageId(), image.getCreatedAt(),
+			image.isSelected(), image.getImageUrl());
 	}
 }
