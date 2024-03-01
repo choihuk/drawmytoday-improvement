@@ -2,8 +2,8 @@ package tipitapi.drawmytodayimprovement.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tipitapi.drawmytodayimprovement.component.Diary;
-import tipitapi.drawmytodayimprovement.component.Emotion;
+import tipitapi.drawmytodayimprovement.domain.Diary;
+import tipitapi.drawmytodayimprovement.domain.Emotion;
 import tipitapi.drawmytodayimprovement.exception.DiaryDateAlreadyExistsException;
 import tipitapi.drawmytodayimprovement.exception.DiaryNotFoundException;
 import tipitapi.drawmytodayimprovement.exception.NotOwnerOfDiaryException;
@@ -34,7 +34,7 @@ public class DiaryValidator {
         }
     }
 
-    public Emotion validateBeforeCreate(Long userId, Long emotionId, LocalDate diaryDate) {
+    public Emotion validateBeforeCreateDiary(Long userId, Long emotionId, LocalDate diaryDate) {
         userValidator.validateByUserId(userId);
         Emotion emotion = emotionValidator.validateByEmotionId(emotionId);
         this.isDiaryNotExist(userId, diaryDate);

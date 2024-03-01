@@ -2,7 +2,7 @@ package tipitapi.drawmytodayimprovement.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tipitapi.drawmytodayimprovement.component.User;
+import tipitapi.drawmytodayimprovement.domain.User;
 import tipitapi.drawmytodayimprovement.enumeration.SocialCode;
 import tipitapi.drawmytodayimprovement.exception.UserNotFoundException;
 import tipitapi.drawmytodayimprovement.repository.UserRepository;

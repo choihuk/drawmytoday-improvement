@@ -2,8 +2,8 @@ package tipitapi.drawmytodayimprovement.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tipitapi.drawmytodayimprovement.component.Diary;
-import tipitapi.drawmytodayimprovement.component.Prompt;
+import tipitapi.drawmytodayimprovement.domain.Diary;
+import tipitapi.drawmytodayimprovement.domain.Prompt;
 import tipitapi.drawmytodayimprovement.repository.PromptRepository;
 
 @Service

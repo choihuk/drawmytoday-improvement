@@ -3,9 +3,9 @@ package tipitapi.drawmytodayimprovement.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import tipitapi.drawmytodayimprovement.component.CreateDiaryElement;
-import tipitapi.drawmytodayimprovement.component.Diary;
-import tipitapi.drawmytodayimprovement.component.Image;
+import tipitapi.drawmytodayimprovement.domain.CreateDiaryElement;
+import tipitapi.drawmytodayimprovement.domain.Diary;
+import tipitapi.drawmytodayimprovement.domain.Image;
 import tipitapi.drawmytodayimprovement.repository.DiaryRepository;
 import tipitapi.drawmytodayimprovement.repository.ImageRepository;
 import tipitapi.drawmytodayimprovement.storage.ImageUploadService;
@@ -26,8 +26,8 @@ public class DiaryCreator {
     private String profile;
 
 
-    public Long saveAfterCreate(Long userId, Long emotionId, CreateDiaryElement createDiaryElement,
-                                String promptText, List<byte[]> images) {
+    public Long saveAfterCreateDiary(Long userId, Long emotionId, CreateDiaryElement createDiaryElement,
+                                     String promptText, List<byte[]> images) {
         Diary diary = diaryRepository.save(Diary.create(userId, emotionId, createDiaryElement));
 
         promptService.createSuccessPrompt(diary, promptText);

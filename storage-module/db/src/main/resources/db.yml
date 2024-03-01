@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: storage-module-db
   jpa:
     open-in-view: false
     hibernate:
@@ -20,8 +18,21 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate:
-        format_sql: true
-        show_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        show_sql: true
+#        dialect: org.hibernate.dialect.MySQLDialect
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
+---
+spring.config.activate.on-profile: develop
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: false

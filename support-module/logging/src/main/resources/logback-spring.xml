@@ -183,4 +183,7 @@
             <appender-ref ref="PROD_JSON_FILE_ERROR"/>
         </root>
     </springProfile>
+
+    <logger name="org.hibernate.sql" level="INFO" additivity="true"/>
+    <logger name="org.hibernate.type.descriptor.sql" level="INFO" additivity="true"/>
 </configuration>

@@ -1,11 +1,10 @@
 package tipitapi.drawmytodayimprovement.auth.repository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import lombok.RequiredArgsConstructor;
 import tipitapi.drawmytodayimprovement.auth.mapper.AuthMapper;
-import tipitapi.drawmytodayimprovement.component.Auth;
+import tipitapi.drawmytodayimprovement.domain.Auth;
 import tipitapi.drawmytodayimprovement.repository.AuthRepository;
 
 @Repository
@@ -13,12 +12,12 @@ import tipitapi.drawmytodayimprovement.repository.AuthRepository;
 @RequiredArgsConstructor
 class AuthEntityRepository implements AuthRepository {
 
-	private final AuthJpaRepository authJpaRepository;
-	private final AuthMapper authMapper;
+    private final AuthJpaRepository authJpaRepository;
+    private final AuthMapper authMapper;
 
-	@Override
-	@Transactional
-	public Auth save(Auth auth) {
-		return authMapper.toDomain(authJpaRepository.save(authMapper.toEntity(auth)));
-	}
+    @Override
+    @Transactional
+    public Auth save(Auth auth) {
+        return authMapper.toDomain(authJpaRepository.save(authMapper.toEntity(auth)));
+    }
 }

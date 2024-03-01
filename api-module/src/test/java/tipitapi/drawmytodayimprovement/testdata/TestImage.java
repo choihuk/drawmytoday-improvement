@@ -1,19 +1,19 @@
 package tipitapi.drawmytodayimprovement.testdata;
 
-import java.time.LocalDateTime;
+import tipitapi.drawmytodayimprovement.domain.Image;
 
-import tipitapi.drawmytodayimprovement.component.Image;
+import java.time.LocalDateTime;
 
 public class TestImage {
 
-	public static Image createTestImage(Long imageId, Long diaryId) {
-		return Image.builder()
-			.imageId(imageId)
-			.diaryId(diaryId)
-			.createdAt(LocalDateTime.now())
-			.imageUrl("imageUrl")
-			.isSelected(true)
-			.review("review")
-			.build();
-	}
+    public static Image createTestImage(Long imageId, Long diaryId) {
+        return Image.builder()
+                .imageId(imageId)
+                .diaryId(diaryId)
+                .createdAt(LocalDateTime.now())
+                .imageUrl("imageUrl")
+                .isSelected(true)
+                .review("review")
+                .build();
+    }
 }

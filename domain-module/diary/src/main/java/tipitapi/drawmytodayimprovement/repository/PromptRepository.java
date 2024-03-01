@@ -1,14 +1,13 @@
 package tipitapi.drawmytodayimprovement.repository;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Repository;
+import tipitapi.drawmytodayimprovement.domain.Prompt;
 
-import tipitapi.drawmytodayimprovement.component.Prompt;
+import java.util.Optional;
 
 @Repository
 public interface PromptRepository {
-	Prompt save(Prompt successPrompt);
+    Prompt save(Prompt successPrompt);
 
-	Optional<Prompt> findByDiaryId(Long diaryId);
+    Optional<Prompt> findByDiaryId(Long diaryId);
 }

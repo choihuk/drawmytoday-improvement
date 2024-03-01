@@ -2,7 +2,7 @@ package tipitapi.drawmytodayimprovement.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tipitapi.drawmytodayimprovement.component.Emotion;
+import tipitapi.drawmytodayimprovement.domain.Emotion;
 import tipitapi.drawmytodayimprovement.exception.EmotionNotFoundException;
 import tipitapi.drawmytodayimprovement.repository.EmotionRepository;
 
