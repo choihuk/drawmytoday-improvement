@@ -12,13 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tipitapi.drawmytodayimprovement.common.dto.SuccessResponse;
 import tipitapi.drawmytodayimprovement.common.resolver.AuthUser;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.request.CreateDiaryRequest;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.request.UpdateDiaryRequest;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.CreateDiaryResponse;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.GetDiaryExistByDateResponse;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.GetDiaryResponse;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.GetMonthlyDiaryResponse;
-import tipitapi.drawmytodayimprovement.vo.JwtTokenInfo;
+import tipitapi.drawmytodayimprovement.common.security.jwt.JwtTokenInfo;
+import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.request.CreateDiaryRequest;
+import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.request.UpdateDiaryRequest;
+import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.response.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -119,6 +116,26 @@ public interface DiaryApi {
             @AuthUser JwtTokenInfo tokenInfo
     );
 
+    @Operation(summary = "일기 삭제", description = "주어진 ID의 일기를 삭제(Soft Delete)한다.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "성공적으로 일기 내용을 삭제함"),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "D002 : 자신의 일기에만 접근할 수 있습니다.",
+                    content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "D001 : 일기를 찾을 수 없습니다.",
+                    content = @Content(schema = @Schema(hidden = true))),
+    })
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> deleteDiary(
+            @AuthUser JwtTokenInfo tokenInfo,
+            @Parameter(description = "일기 id", in = ParameterIn.PATH) @PathVariable("id") Long diaryId
+    );
+
     @Operation(summary = "특정 날짜 일기 존재 여부 조회", description = "특정 날짜에 일기가 존재하는지 조회하여 반환한다.")
     @ApiResponses(value = {
             @ApiResponse(
@@ -134,6 +151,28 @@ public interface DiaryApi {
             @Parameter(description = "조회할 연도", in = ParameterIn.QUERY) @RequestParam("year") int year,
             @Parameter(description = "조회할 달", in = ParameterIn.QUERY) @RequestParam("month") int month,
             @Parameter(description = "조회할 일", in = ParameterIn.QUERY) @RequestParam("day") int day,
+            @AuthUser JwtTokenInfo tokenInfo
+    );
+
+    @Operation(summary = "마지막 일기 생성 시각 조회", description = "유저가 마지막으로 일기를 생성한 시각을 반환한다.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "마지막 일기 생성 시각 정보"),
+    })
+    @GetMapping("/last-creation")
+    ResponseEntity<SuccessResponse<GetLastCreationResponse>> getLastCreation(
+            @AuthUser JwtTokenInfo tokenInfo
+    );
+
+    @Operation(summary = "일기 생성 가능 여부 조회", description = "유저가 일기를 생성할 수 있는 티켓이 있는지 여부를 반환한다.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "일기 생성 가능 정보"),
+    })
+    @GetMapping("/limit")
+    ResponseEntity<SuccessResponse<GetDiaryLimitResponse>> getDrawLimit(
             @AuthUser JwtTokenInfo tokenInfo
     );
 }

@@ -1,4 +1,4 @@
-package tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response;
+package tipitapi.drawmytodayimprovement.domain.diary.application.usecase.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import tipitapi.drawmytodayimprovement.domain.Diary;

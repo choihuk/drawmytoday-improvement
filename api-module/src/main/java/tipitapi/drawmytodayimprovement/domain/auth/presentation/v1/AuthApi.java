@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import tipitapi.drawmytodayimprovement.common.dto.SuccessResponse;
-import tipitapi.drawmytodayimprovement.domain.auth.presentation.v1.response.JwtTokenResponse;
+import tipitapi.drawmytodayimprovement.domain.auth.application.usecase.response.JwtTokenResponse;
 
 import javax.servlet.http.HttpServletRequest;
 

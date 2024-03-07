@@ -3,8 +3,8 @@ package tipitapi.drawmytodayimprovement.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import tipitapi.drawmytodayimprovement.domain.SocialCode;
 import tipitapi.drawmytodayimprovement.domain.User;
-import tipitapi.drawmytodayimprovement.enumeration.SocialCode;
 import tipitapi.drawmytodayimprovement.event.AfterRegisterUserEvent;
 import tipitapi.drawmytodayimprovement.repository.UserRepository;
 

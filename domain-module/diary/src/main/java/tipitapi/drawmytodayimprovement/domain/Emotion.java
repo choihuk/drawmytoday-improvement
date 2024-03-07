@@ -1,15 +1,11 @@
 package tipitapi.drawmytodayimprovement.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Emotion {
 
     private Long emotionId;
@@ -19,4 +15,16 @@ public class Emotion {
     private boolean isActive;
     private String emotionPrompt;
     private String colorPrompt;
+
+    @Builder
+    private Emotion(Long emotionId, LocalDateTime createdAt, String name, String color,
+                    boolean isActive, String emotionPrompt, String colorPrompt) {
+        this.emotionId = emotionId;
+        this.createdAt = createdAt;
+        this.name = name;
+        this.color = color;
+        this.isActive = isActive;
+        this.emotionPrompt = emotionPrompt;
+        this.colorPrompt = colorPrompt;
+    }
 }

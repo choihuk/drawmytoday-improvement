@@ -3,15 +3,15 @@ package tipitapi.drawmytodayimprovement.domain.auth.application.usecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionTemplate;
+import tipitapi.drawmytodayimprovement.common.security.jwt.JwtTokenInfo;
+import tipitapi.drawmytodayimprovement.domain.SocialCode;
 import tipitapi.drawmytodayimprovement.domain.User;
-import tipitapi.drawmytodayimprovement.enumeration.SocialCode;
 import tipitapi.drawmytodayimprovement.exception.UserNotFoundException;
 import tipitapi.drawmytodayimprovement.oauth.GoogleOAuthService;
 import tipitapi.drawmytodayimprovement.oauth.google.GoogleAccessToken;
 import tipitapi.drawmytodayimprovement.oauth.google.GoogleUserProfile;
 import tipitapi.drawmytodayimprovement.service.RegisterUserService;
 import tipitapi.drawmytodayimprovement.service.UserValidator;
-import tipitapi.drawmytodayimprovement.vo.JwtTokenInfo;
 
 @Component
 @RequiredArgsConstructor

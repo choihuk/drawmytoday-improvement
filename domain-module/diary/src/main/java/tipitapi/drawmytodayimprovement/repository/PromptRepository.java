@@ -7,7 +7,7 @@ import java.util.Optional;
 
 @Repository
 public interface PromptRepository {
-    Prompt save(Prompt successPrompt);
+    Prompt save(Prompt prompt);
 
-    Optional<Prompt> findByDiaryId(Long diaryId);
+    Optional<Prompt> findByImageId(Long diaryId);
 }

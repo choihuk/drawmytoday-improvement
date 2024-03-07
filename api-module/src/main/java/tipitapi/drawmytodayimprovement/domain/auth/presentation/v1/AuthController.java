@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tipitapi.drawmytodayimprovement.common.dto.SuccessResponse;
+import tipitapi.drawmytodayimprovement.common.security.jwt.JwtTokenInfo;
 import tipitapi.drawmytodayimprovement.common.security.jwt.JwtTokenProvider;
 import tipitapi.drawmytodayimprovement.common.utils.HeaderUtils;
 import tipitapi.drawmytodayimprovement.domain.auth.application.usecase.AuthUseCase;
-import tipitapi.drawmytodayimprovement.domain.auth.presentation.v1.response.JwtTokenResponse;
-import tipitapi.drawmytodayimprovement.vo.JwtTokenInfo;
+import tipitapi.drawmytodayimprovement.domain.auth.application.usecase.response.JwtTokenResponse;
 
 import javax.servlet.http.HttpServletRequest;
 

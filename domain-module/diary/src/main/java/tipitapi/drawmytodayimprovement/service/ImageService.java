@@ -67,4 +67,14 @@ public class ImageService {
         }
         return monthlyDiaries;
     }
+
+    public Image save(Image image) {
+        return imageRepository.save(image);
+    }
+
+    public void unSelectAllImage(Long diaryId) {
+        List<Image> images = imageRepository.findAll(diaryId);
+        images.forEach(Image::makeSubImage);
+        imageRepository.saveAll(images);
+    }
 }

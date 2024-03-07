@@ -1,10 +1,7 @@
 package tipitapi.drawmytodayimprovement.domain.diary.application.usecase;
 
 import tipitapi.drawmytodayimprovement.domain.CreateDiaryElement;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.CreateDiaryResponse;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.GetDiaryExistByDateResponse;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.GetDiaryResponse;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.GetMonthlyDiaryResponse;
+import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.response.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,5 +15,13 @@ public interface DiaryUseCase {
 
     void updateDiaryNotes(Long userId, Long diaryId, String notes);
 
+    void deleteDiary(Long userId, Long diaryId);
+
     GetDiaryExistByDateResponse getDiaryExistByDate(Long userId, LocalDate diaryDate);
+
+    GetLastCreationResponse getLastCreation(Long userId);
+
+    GetDiaryLimitResponse getDrawLimit(Long userId);
+
+    void regenerateDiaryImage(Long userId, Long diaryId, String diaryNote);
 }

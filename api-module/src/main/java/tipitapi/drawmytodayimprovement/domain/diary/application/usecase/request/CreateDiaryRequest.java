@@ -1,4 +1,4 @@
-package tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.request;
+package tipitapi.drawmytodayimprovement.domain.diary.application.usecase.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -16,8 +16,8 @@ import java.time.LocalTime;
 public record CreateDiaryRequest(@Schema(description = "감정 ID")
                                  @NotNull
                                  Long emotionId,
-                                 @Schema(description = "일기 키워드", nullable = true)
-                                 String keyword,
+                                 @Schema(description = "번역된 일기", nullable = true)
+                                 String translatedNotes,
                                  @Schema(description = "일기 내용", nullable = true)
                                  @Size(max = 6010)
                                  String notes,
@@ -33,6 +33,6 @@ public record CreateDiaryRequest(@Schema(description = "감정 ID")
                                  LocalTime userTime) {
 
     public CreateDiaryElement toCreateDiaryElement() {
-        return new CreateDiaryElement(keyword, notes, diaryDate, userTime);
+        return new CreateDiaryElement(translatedNotes, notes, diaryDate, userTime);
     }
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface TicketRepository {
     List<Ticket> saveAll(List<Ticket> tickets);
 
-    Optional<Ticket> findValidTicket(Long userId);
+    Optional<Ticket> findAvailableTicket(Long userId);
 
     Ticket save(Ticket ticket);
 }

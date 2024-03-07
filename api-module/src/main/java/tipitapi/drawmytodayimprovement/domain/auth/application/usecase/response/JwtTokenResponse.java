@@ -1,4 +1,4 @@
-package tipitapi.drawmytodayimprovement.domain.auth.presentation.v1.response;
+package tipitapi.drawmytodayimprovement.domain.auth.application.usecase.response;
 
 import javax.validation.constraints.NotBlank;
 

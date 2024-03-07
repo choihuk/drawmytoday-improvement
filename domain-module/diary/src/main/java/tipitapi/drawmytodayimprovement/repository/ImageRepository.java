@@ -15,4 +15,6 @@ public interface ImageRepository {
     List<Image> findAllLatestSorted(Long diaryId);
 
     Optional<Image> findRecentByDiary(Long diaryId);
+
+    List<Image> saveAll(List<Image> images);
 }

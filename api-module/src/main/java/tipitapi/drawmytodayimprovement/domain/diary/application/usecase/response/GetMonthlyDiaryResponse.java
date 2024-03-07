@@ -1,4 +1,4 @@
-package tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response;
+package tipitapi.drawmytodayimprovement.domain.diary.application.usecase.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

@@ -40,4 +40,10 @@ public class DiaryValidator {
         this.isDiaryNotExist(userId, diaryDate);
         return emotion;
     }
+
+    public Emotion validateBeforeRegenerateDiary(Long userId, Long diaryId) {
+        userValidator.validateByUserId(userId);
+        this.isDiaryOwner(diaryId, userId);
+        return emotionValidator.validateByDiaryId(diaryId);
+    }
 }

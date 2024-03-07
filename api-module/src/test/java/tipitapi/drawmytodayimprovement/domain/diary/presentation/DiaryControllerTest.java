@@ -15,8 +15,8 @@ import tipitapi.drawmytodayimprovement.domain.Emotion;
 import tipitapi.drawmytodayimprovement.domain.Image;
 import tipitapi.drawmytodayimprovement.domain.Prompt;
 import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.DiaryUseCase;
+import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.response.GetDiaryResponse;
 import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.DiaryController;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.GetDiaryResponse;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ import static tipitapi.drawmytodayimprovement.testdata.TestImage.createTestImage
 @WithCustomUser
 class DiaryControllerTest extends ControllerTestSetup {
 
-    private static final String BASIC_URL = "/diary";
+    private static final String BASIC_URL = "/translatedDiary";
 
     @Autowired
     ObjectMapper objectMapper;

@@ -83,4 +83,15 @@ class DiaryEntityRepository implements DiaryRepository {
                         .fetchFirst()
         ).map(diaryMapper::toDomain);
     }
+
+    @Override
+    public Optional<Diary> findFirstByUserIdOrderByCreatedAtDesc(Long userId) {
+        return diaryJpaRepository.findFirstByUserIdOrderByCreatedAtDesc(userId)
+                .map(diaryMapper::toDomain);
+    }
+
+    @Override
+    public void delete(Diary diary) {
+        diaryJpaRepository.delete(diaryMapper.toEntity(diary));
+    }
 }

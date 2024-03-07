@@ -8,12 +8,12 @@ import tipitapi.drawmytodayimprovement.repository.TicketRepository;
 
 @Service
 @RequiredArgsConstructor
-public class ValidateTicketService {
+public class TicketValidator {
 
     private final TicketRepository ticketRepository;
 
     public Ticket validateAvailableTicketLeft(Long userId) {
-        return ticketRepository.findValidTicket(userId)
+        return ticketRepository.findAvailableTicket(userId)
                 .orElseThrow(ValidTicketNotExistsException::new);
     }
 }

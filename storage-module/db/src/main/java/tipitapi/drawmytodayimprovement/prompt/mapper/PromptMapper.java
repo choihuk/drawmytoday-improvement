@@ -2,24 +2,21 @@ package tipitapi.drawmytodayimprovement.prompt.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import tipitapi.drawmytodayimprovement.diary.entity.DiaryEntity;
 import tipitapi.drawmytodayimprovement.domain.Prompt;
+import tipitapi.drawmytodayimprovement.domain.PromptGeneratorResult;
 import tipitapi.drawmytodayimprovement.prompt.entity.PromptEntity;
-
-import javax.persistence.EntityManager;
+import tipitapi.drawmytodayimprovement.prompt.entity.PromptGeneratorResultVO;
 
 @Component
 @RequiredArgsConstructor
 public class PromptMapper {
 
-    private final EntityManager entityManager;
-
     public Prompt toDomain(PromptEntity promptEntity) {
         return Prompt.builder()
                 .promptId(promptEntity.getId())
                 .createdAt(promptEntity.getCreatedAt())
-                .diaryId(getDiaryId(promptEntity))
                 .promptText(promptEntity.getPromptText())
+                .promptGeneratorResult(toDomain(promptEntity.getPromptGeneratorResult()))
                 .isSuccess(promptEntity.isSuccess())
                 .build();
     }
@@ -27,17 +24,23 @@ public class PromptMapper {
     public PromptEntity toEntity(Prompt prompt) {
         return PromptEntity.builder()
                 .id(prompt.getPromptId())
-                .diary(getDiaryEntity(prompt.getDiaryId()))
                 .promptText(prompt.getPromptText())
+                .promptGeneratorResult(toEntity(prompt.getPromptGeneratorResult()))
                 .isSuccess(prompt.isSuccess())
                 .build();
     }
 
-    private Long getDiaryId(PromptEntity promptEntity) {
-        return promptEntity.getDiary() != null ? promptEntity.getDiary().getId() : null;
+    public PromptGeneratorResult toDomain(PromptGeneratorResultVO promptGeneratorResultVO) {
+        return PromptGeneratorResult.builder()
+                .promptGeneratorType(promptGeneratorResultVO.getPromptGeneratorType())
+                .promptGeneratorContent(promptGeneratorResultVO.getPromptGeneratorContent())
+                .build();
     }
 
-    private DiaryEntity getDiaryEntity(Long diaryId) {
-        return diaryId != null ? entityManager.getReference(DiaryEntity.class, diaryId) : null;
+    public PromptGeneratorResultVO toEntity(PromptGeneratorResult promptGeneratorResult) {
+        return PromptGeneratorResultVO.builder()
+                .promptGeneratorType(promptGeneratorResult.getPromptGeneratorType())
+                .promptGeneratorContent(promptGeneratorResult.getPromptGeneratorContent())
+                .build();
     }
 }

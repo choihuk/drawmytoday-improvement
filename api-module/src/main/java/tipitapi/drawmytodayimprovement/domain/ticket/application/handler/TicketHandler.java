@@ -3,33 +3,41 @@ package tipitapi.drawmytodayimprovement.domain.ticket.application.handler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import tipitapi.drawmytodayimprovement.event.AfterCreateDiaryEvent;
-import tipitapi.drawmytodayimprovement.event.AfterRegisterUserEvent;
-import tipitapi.drawmytodayimprovement.event.BeforeCreateDiaryEvent;
+import tipitapi.drawmytodayimprovement.event.*;
 import tipitapi.drawmytodayimprovement.service.CreateTicketService;
-import tipitapi.drawmytodayimprovement.service.UseTicketService;
-import tipitapi.drawmytodayimprovement.service.ValidateTicketService;
+import tipitapi.drawmytodayimprovement.service.TicketService;
+import tipitapi.drawmytodayimprovement.service.TicketValidator;
 
 @Component
 @RequiredArgsConstructor
 class TicketHandler {
 
-    private final ValidateTicketService validateTicketService;
+    private final TicketValidator ticketValidator;
     private final CreateTicketService createTicketService;
-    private final UseTicketService useTicketService;
+    private final TicketService ticketService;
 
     @EventListener
     public void handle(BeforeCreateDiaryEvent event) {
-        validateTicketService.validateAvailableTicketLeft(event.userId());
+        ticketValidator.validateAvailableTicketLeft(event.userId());
     }
 
     @EventListener
     public void handle(AfterCreateDiaryEvent event) {
-        useTicketService.useTicket(event.userId());
+        ticketService.useTicket(event.userId());
     }
 
     @EventListener
     public void handle(AfterRegisterUserEvent event) {
         createTicketService.createJoinTickets(event.userId());
+    }
+
+    @EventListener
+    public void handler(BeforeRegenerateDiaryEvent event) {
+        ticketValidator.validateAvailableTicketLeft(event.userId());
+    }
+
+    @EventListener
+    public void handle(AfterRegenerateDiaryEvent event) {
+        ticketService.useTicket(event.userId());
     }
 }

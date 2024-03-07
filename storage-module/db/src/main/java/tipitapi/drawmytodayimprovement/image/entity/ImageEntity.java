@@ -1,26 +1,17 @@
 package tipitapi.drawmytodayimprovement.image.entity;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.SQLDelete;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
 import tipitapi.drawmytodayimprovement.common.BaseEntity;
 import tipitapi.drawmytodayimprovement.diary.entity.DiaryEntity;
+import tipitapi.drawmytodayimprovement.prompt.entity.PromptEntity;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @SQLDelete(sql = "UPDATE image SET deleted_at = current_timestamp WHERE image_id = ?")
 @Getter
@@ -29,36 +20,42 @@ import tipitapi.drawmytodayimprovement.diary.entity.DiaryEntity;
 @Table(name = "image")
 public class ImageEntity extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "image_id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "image_id")
+    private Long id;
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "diary_id", nullable = false)
-	private DiaryEntity diary;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "diary_id", nullable = false)
+    private DiaryEntity diary;
 
-	@NotNull
-	@Column(nullable = false)
-	private String imageUrl;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "prompt_id", nullable = false)
+    private PromptEntity prompt;
 
-	@NotNull
-	private boolean isSelected;
+    @NotNull
+    @Column(nullable = false)
+    private String imageUrl;
 
-	private String review;
+    @NotNull
+    private boolean isSelected;
 
-	private LocalDateTime deletedAt;
+    private String review;
 
-	@Builder
-	private ImageEntity(Long id, DiaryEntity diary, String imageUrl, boolean isSelected, String review,
-		LocalDateTime deletedAt) {
-		this.id = id;
-		this.diary = diary;
-		this.imageUrl = imageUrl;
-		this.isSelected = isSelected;
-		this.review = review;
-		this.deletedAt = deletedAt;
-	}
+    private LocalDateTime deletedAt;
+
+    @Builder
+    private ImageEntity(Long id, DiaryEntity diary, PromptEntity prompt, String imageUrl,
+                        boolean isSelected, String review, LocalDateTime deletedAt) {
+        this.id = id;
+        this.diary = diary;
+        this.prompt = prompt;
+        this.imageUrl = imageUrl;
+        this.isSelected = isSelected;
+        this.review = review;
+        this.deletedAt = deletedAt;
+    }
 }
 

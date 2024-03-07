@@ -4,8 +4,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import tipitapi.drawmytodayimprovement.enumeration.SocialCode;
-import tipitapi.drawmytodayimprovement.enumeration.UserRole;
 
 import java.time.LocalDateTime;
 

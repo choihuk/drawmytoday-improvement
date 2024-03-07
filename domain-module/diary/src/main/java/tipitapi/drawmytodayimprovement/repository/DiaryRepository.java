@@ -21,4 +21,8 @@ public interface DiaryRepository {
     List<MonthlyDiary> findMonthlyDiaries(Long userId, LocalDateTime startMonth, LocalDateTime endMonth);
 
     Optional<Diary> getDiaryExistsByDiaryDate(Long userId, LocalDate date);
+
+    Optional<Diary> findFirstByUserIdOrderByCreatedAtDesc(Long userId);
+
+    void delete(Diary diary);
 }

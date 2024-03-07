@@ -24,8 +24,9 @@ class PromptEntityRepository implements PromptRepository {
     }
 
     @Override
-    public Optional<Prompt> findByDiaryId(Long diaryId) {
-        return promptJpaRepository.findByDiaryId(diaryId)
+    public Optional<Prompt> findByImageId(Long diaryId) {
+        return promptJpaRepository.findAllSuccessPromptByImageId(diaryId).stream()
+                .findFirst()
                 .map(promptMapper::toDomain);
     }
 }

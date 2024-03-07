@@ -34,7 +34,7 @@ class TicketEntityRepository implements TicketRepository {
     }
 
     @Override
-    public Optional<Ticket> findValidTicket(Long userId) {
+    public Optional<Ticket> findAvailableTicket(Long userId) {
         return Optional.ofNullable(
                 queryFactory.selectFrom(ticketEntity)
                         .where(ticketEntity.usedAt.isNull()

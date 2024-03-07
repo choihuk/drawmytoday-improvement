@@ -53,4 +53,15 @@ class ImageEntityRepository implements ImageRepository {
                         .fetchFirst())
                 .map(imageMapper::toDomain);
     }
+
+    @Override
+    public List<Image> saveAll(List<Image> images) {
+        return imageJpaRepository.saveAll(
+                        images.stream()
+                                .map(imageMapper::toEntity)
+                                .toList()
+                ).stream()
+                .map(imageMapper::toDomain)
+                .toList();
+    }
 }

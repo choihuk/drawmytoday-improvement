@@ -1,20 +1,21 @@
 package tipitapi.drawmytodayimprovement.domain.diary.presentation.v1;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tipitapi.drawmytodayimprovement.common.dto.SuccessResponse;
 import tipitapi.drawmytodayimprovement.common.resolver.AuthUser;
+import tipitapi.drawmytodayimprovement.common.security.jwt.JwtTokenInfo;
 import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.DiaryUseCase;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.request.CreateDiaryRequest;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.request.UpdateDiaryRequest;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.CreateDiaryResponse;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.GetDiaryExistByDateResponse;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.GetDiaryResponse;
-import tipitapi.drawmytodayimprovement.domain.diary.presentation.v1.response.GetMonthlyDiaryResponse;
+import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.request.CreateDiaryRequest;
+import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.request.RegenerateDiaryRequest;
+import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.request.UpdateDiaryRequest;
+import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.response.*;
+import tipitapi.drawmytodayimprovement.imagegenerator.ImageGeneratorException;
 import tipitapi.drawmytodayimprovement.utils.DateUtils;
-import tipitapi.drawmytodayimprovement.vo.JwtTokenInfo;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -39,6 +40,16 @@ public class DiaryController implements DiaryApi {
                 request.toCreateDiaryElement()
         );
         return SuccessResponse.of(response).asHttp(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{id}/regenerate")
+    public ResponseEntity<Void> regenerateDiaryImage(
+            @AuthUser JwtTokenInfo tokenInfo,
+            @Parameter(description = "일기 id", in = ParameterIn.PATH) @PathVariable("id") Long diaryId,
+            @RequestBody RegenerateDiaryRequest request
+    ) throws ImageGeneratorException {
+        diaryUseCase.regenerateDiaryImage(tokenInfo.userId(), diaryId, request.diary());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override
@@ -73,6 +84,16 @@ public class DiaryController implements DiaryApi {
     }
 
     @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDiary(
+            @AuthUser JwtTokenInfo tokenInfo,
+            @PathVariable("id") Long diaryId
+    ) {
+        diaryUseCase.deleteDiary(tokenInfo.userId(), diaryId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
     @GetMapping("/calendar/date")
     public ResponseEntity<SuccessResponse<GetDiaryExistByDateResponse>> getDiaryExistByDate(
             @RequestParam("year") int year,
@@ -83,6 +104,29 @@ public class DiaryController implements DiaryApi {
         LocalDate diaryDate = DateUtils.getDate(year, month, day);
         return SuccessResponse.of(
                 diaryUseCase.getDiaryExistByDate(tokenInfo.userId(), diaryDate)
+        ).asHttp(HttpStatus.OK);
+    }
+
+    @Override
+    @GetMapping("/last-creation")
+    public ResponseEntity<SuccessResponse<GetLastCreationResponse>> getLastCreation(
+            @AuthUser JwtTokenInfo tokenInfo
+    ) {
+        return SuccessResponse.of(
+                diaryUseCase.getLastCreation(tokenInfo.userId())
+        ).asHttp(HttpStatus.OK);
+    }
+
+    /**
+     * 가능하다면 API를 Ticket 도메인으로 이동하는게 맞을거 같음(유저가 티켓이 있는지를 확인하는 API이기 때문)
+     */
+    @Override
+    @GetMapping("/limit")
+    public ResponseEntity<SuccessResponse<GetDiaryLimitResponse>> getDrawLimit(
+            @AuthUser JwtTokenInfo tokenInfo
+    ) {
+        return SuccessResponse.of(
+                diaryUseCase.getDrawLimit(tokenInfo.userId())
         ).asHttp(HttpStatus.OK);
     }
 }

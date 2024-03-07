@@ -27,4 +27,12 @@ public class DiaryService {
     public Optional<Diary> getDiaryExistsByDiaryDate(Long userId, LocalDate diaryDate) {
         return diaryRepository.getDiaryExistsByDiaryDate(userId, diaryDate);
     }
+
+    public Optional<Diary> getLastCreation(Long userId) {
+        return diaryRepository.findFirstByUserIdOrderByCreatedAtDesc(userId);
+    }
+
+    public void deleteDiary(Diary diary) {
+        diaryRepository.delete(diary);
+    }
 }

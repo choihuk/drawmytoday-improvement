@@ -1,28 +1,39 @@
 package tipitapi.drawmytodayimprovement.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Image {
 
     private Long imageId;
     private Long diaryId;
+    private Long promptId;
     private LocalDateTime createdAt;
     private String imageUrl;
     private boolean isSelected;
     private String review;
     private LocalDateTime deletedAt;
 
-    public static Image create(Long diaryId, String imagePath, boolean isSelected) {
+    @Builder
+    private Image(Long imageId, Long diaryId, Long promptId, LocalDateTime createdAt,
+                  String imageUrl, boolean isSelected, String review, LocalDateTime deletedAt) {
+        this.imageId = imageId;
+        this.diaryId = diaryId;
+        this.promptId = promptId;
+        this.createdAt = createdAt;
+        this.imageUrl = imageUrl;
+        this.isSelected = isSelected;
+        this.review = review;
+        this.deletedAt = deletedAt;
+    }
+
+    public static Image create(Long diaryId, Long promptId, String imagePath, boolean isSelected) {
         return Image.builder()
                 .diaryId(diaryId)
+                .promptId(promptId)
                 .imageUrl(imagePath)
                 .isSelected(isSelected)
                 .build();
@@ -34,5 +45,9 @@ public class Image {
 
     public void makeMainImage() {
         this.isSelected = true;
+    }
+
+    public void makeSubImage() {
+        this.isSelected = false;
     }
 }
