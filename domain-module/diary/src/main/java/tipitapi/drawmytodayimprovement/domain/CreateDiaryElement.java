@@ -8,11 +8,10 @@ public record CreateDiaryElement(String diaryNote,
                                  LocalDate diaryDate,
                                  LocalTime userTime) {
 
-    public LocalTime userTime() {
+    public CreateDiaryElement {
         if (userTime == null) {
-            return LocalTime.now();
+            userTime = LocalTime.now();
         }
-        return userTime;
     }
 
 }

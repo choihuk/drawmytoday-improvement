@@ -1,21 +1,20 @@
 package tipitapi.drawmytodayimprovement.diary.repository;
 
+import com.querydsl.core.types.ConstructorExpression;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import tipitapi.drawmytodayimprovement.diary.mapper.DiaryMapper;
-import tipitapi.drawmytodayimprovement.diary.vo.MonthlyDiaryVo;
-import tipitapi.drawmytodayimprovement.diary.vo.QMonthlyDiaryVo;
 import tipitapi.drawmytodayimprovement.domain.Diary;
-import tipitapi.drawmytodayimprovement.domain.MonthlyDiary;
+import tipitapi.drawmytodayimprovement.dto.MonthlyDiary;
 import tipitapi.drawmytodayimprovement.repository.DiaryRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static tipitapi.drawmytodayimprovement.diary.entity.QDiaryEntity.diaryEntity;
 import static tipitapi.drawmytodayimprovement.image.entity.QImageEntity.imageEntity;
@@ -56,8 +55,9 @@ class DiaryEntityRepository implements DiaryRepository {
 
     @Override
     public List<MonthlyDiary> findMonthlyDiaries(Long userId, LocalDateTime startMonth, LocalDateTime endMonth) {
-        return queryFactory.select(
-                        new QMonthlyDiaryVo(diaryEntity.id, imageEntity.imageUrl.max(), diaryEntity.diaryDate))
+        ConstructorExpression<MonthlyDiary> constructor = Projections.constructor(MonthlyDiary.class,
+                diaryEntity.id, imageEntity.imageUrl.max(), diaryEntity.diaryDate);
+        return queryFactory.select(constructor)
                 .from(diaryEntity)
                 .leftJoin(imageEntity)
                 .on(diaryEntity.id.eq(imageEntity.diary.id)
@@ -66,10 +66,7 @@ class DiaryEntityRepository implements DiaryRepository {
                         .and(diaryEntity.user.id.eq(userId)))
                 .orderBy(diaryEntity.diaryDate.asc())
                 .groupBy(diaryEntity.id)
-                .fetch()
-                .stream()
-                .map(MonthlyDiaryVo::toDomain)
-                .collect(Collectors.toList());
+                .fetch();
     }
 
     @Override

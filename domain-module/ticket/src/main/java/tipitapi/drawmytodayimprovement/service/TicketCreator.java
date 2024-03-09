@@ -11,16 +11,20 @@ import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
-public class CreateTicketService {
+public class TicketCreator {
 
     private static final int JOIN_TICKET_COUNT = 1;
     private final TicketRepository ticketRepository;
 
-    public void createJoinTickets(Long userId) {
+    public void createAndSaveJoinTickets(Long userId) {
         List<Ticket> tickets = IntStream.range(0, JOIN_TICKET_COUNT)
                 .mapToObj(i -> Ticket.createJoinTicket(userId))
                 .collect(Collectors.toList());
         ticketRepository.saveAll(tickets);
+    }
+
+    public void createAndSaveAdRewardTicket(Long userId) {
+        ticketRepository.save(Ticket.createAdRewardTicket(userId));
     }
 
 }

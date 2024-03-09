@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.response
 import javax.validation.Valid;
 import java.util.List;
 
+@SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Diary", description = "일기 API")
 public interface DiaryApi {
     @Operation(summary = "일기 생성", description = "DALL-E API를 사용하여 이미지를 발급하여 일기를 생성한다.")

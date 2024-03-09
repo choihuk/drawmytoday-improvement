@@ -5,6 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import tipitapi.drawmytodayimprovement.domain.Image;
+import tipitapi.drawmytodayimprovement.dto.ImageForMonitoring;
+import tipitapi.drawmytodayimprovement.dto.PageResponse;
+import tipitapi.drawmytodayimprovement.dto.PageableRequest;
 import tipitapi.drawmytodayimprovement.image.mapper.ImageMapper;
 import tipitapi.drawmytodayimprovement.repository.ImageRepository;
 
@@ -14,7 +17,7 @@ import java.util.Optional;
 import static tipitapi.drawmytodayimprovement.image.entity.QImageEntity.imageEntity;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 class ImageEntityRepository implements ImageRepository {
 
@@ -63,5 +66,11 @@ class ImageEntityRepository implements ImageRepository {
                 ).stream()
                 .map(imageMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public PageResponse<ImageForMonitoring> getImagesForMonitoring(PageableRequest pageableRequest,
+                                                                   Long emotionId, boolean withTest) {
+
     }
 }

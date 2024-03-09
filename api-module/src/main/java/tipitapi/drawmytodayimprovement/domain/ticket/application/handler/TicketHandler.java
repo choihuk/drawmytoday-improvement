@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import tipitapi.drawmytodayimprovement.event.*;
-import tipitapi.drawmytodayimprovement.service.CreateTicketService;
+import tipitapi.drawmytodayimprovement.service.TicketCreator;
 import tipitapi.drawmytodayimprovement.service.TicketService;
 import tipitapi.drawmytodayimprovement.service.TicketValidator;
 
@@ -13,7 +13,7 @@ import tipitapi.drawmytodayimprovement.service.TicketValidator;
 class TicketHandler {
 
     private final TicketValidator ticketValidator;
-    private final CreateTicketService createTicketService;
+    private final TicketCreator ticketCreator;
     private final TicketService ticketService;
 
     @EventListener
@@ -28,7 +28,7 @@ class TicketHandler {
 
     @EventListener
     public void handle(AfterRegisterUserEvent event) {
-        createTicketService.createJoinTickets(event.userId());
+        ticketCreator.createAndSaveJoinTickets(event.userId());
     }
 
     @EventListener

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 import tipitapi.drawmytodayimprovement.domain.*;
 import tipitapi.drawmytodayimprovement.domain.diary.application.usecase.response.*;
+import tipitapi.drawmytodayimprovement.dto.MonthlyDiary;
 import tipitapi.drawmytodayimprovement.event.AfterCreateDiaryEvent;
 import tipitapi.drawmytodayimprovement.event.AfterRegenerateDiaryEvent;
 import tipitapi.drawmytodayimprovement.event.BeforeCreateDiaryEvent;

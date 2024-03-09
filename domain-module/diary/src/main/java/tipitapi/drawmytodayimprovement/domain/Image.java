@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class Image {
+public class Image implements ImageUrlConvertable {
 
     private Long imageId;
     private Long diaryId;
@@ -39,6 +39,7 @@ public class Image {
                 .build();
     }
 
+    @Override
     public void convertImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }

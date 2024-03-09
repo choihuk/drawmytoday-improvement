@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tipitapi.drawmytodayimprovement.domain.Image;
-import tipitapi.drawmytodayimprovement.domain.MonthlyDiary;
-import tipitapi.drawmytodayimprovement.exception.ImageNotFoundException;
+import tipitapi.drawmytodayimprovement.domain.ImageUrlConvertable;
+import tipitapi.drawmytodayimprovement.dto.ImageForMonitoring;
+import tipitapi.drawmytodayimprovement.dto.MonthlyDiary;
+import tipitapi.drawmytodayimprovement.dto.PageResponse;
+import tipitapi.drawmytodayimprovement.dto.PageableRequest;
 import tipitapi.drawmytodayimprovement.repository.ImageRepository;
 import tipitapi.drawmytodayimprovement.storage.PreSignedUrlService;
 
@@ -20,24 +23,14 @@ public class ImageService {
     private final ImageRepository imageRepository;
     private final PreSignedUrlService preSignedUrlService;
 
-    public Image getSelectedImage(Long diaryId) {
-        return imageRepository.findAll(diaryId).stream()
-                .filter(Image::isSelected)
-                .findFirst()
-                .map(image -> {
-                    image.convertImageUrl(preSignedUrlService.getCustomDomainUrl(image.getImageUrl()));
-                    return image;
-                })
-                .orElseThrow(ImageNotFoundException::new);
-    }
-
     public List<Image> getLatestSortedImages(Long diaryId) {
         return imageRepository.findAllLatestSorted(diaryId)
                 .stream()
                 .map(image -> {
-                    image.convertImageUrl(preSignedUrlService.getCustomDomainUrl(image.getImageUrl()));
+                    convertImageUrl(image, image.getImageUrl());
                     return image;
-                }).toList();
+                })
+                .toList();
     }
 
     public Optional<Image> getOneLatestImage(Long diaryId) {
@@ -53,16 +46,12 @@ public class ImageService {
                 if (latestImage.isPresent()) {
                     latestImage.get().makeMainImage();
                     imageRepository.save(latestImage.get());
-                    monthlyDiary.convertImageUrl(
-                            preSignedUrlService.getCustomDomainUrl(latestImage.get().getImageUrl())
-                    );
+                    convertImageUrl(monthlyDiary, latestImage.get().getImageUrl());
                 } else {
                     monthlyDiaries.remove(i--);
                 }
             } else {
-                monthlyDiary.convertImageUrl(
-                        preSignedUrlService.getCustomDomainUrl(monthlyDiary.getImageUrl())
-                );
+                convertImageUrl(monthlyDiary, monthlyDiary.getImageUrl());
             }
         }
         return monthlyDiaries;
@@ -77,4 +66,17 @@ public class ImageService {
         images.forEach(Image::makeSubImage);
         imageRepository.saveAll(images);
     }
+
+    public PageResponse<ImageForMonitoring> getImagesForMonitoring(PageableRequest pageableRequest,
+                                                                   Long emotionId, boolean withTest) {
+        PageResponse<ImageForMonitoring> imagesForMonitoring = imageRepository.getImagesForMonitoring(
+                pageableRequest, emotionId, withTest);
+        imagesForMonitoring.forEach(image -> convertImageUrl(image, image.getImageUrl()));
+        return imagesForMonitoring;
+    }
+
+    private void convertImageUrl(ImageUrlConvertable imageUrlConvertable, String imageUrl) {
+        imageUrlConvertable.convertImageUrl(preSignedUrlService.getCustomDomainUrl(imageUrl));
+    }
+
 }

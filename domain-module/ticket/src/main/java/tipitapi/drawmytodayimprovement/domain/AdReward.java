@@ -16,4 +16,10 @@ public class AdReward {
     private LocalDateTime createdAt;
     private Long userId;
     private LocalDateTime usedAt;
+
+    public static AdReward create(Long userId) {
+        return AdReward.builder()
+                .userId(userId)
+                .build();
+    }
 }

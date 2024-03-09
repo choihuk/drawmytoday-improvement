@@ -3,7 +3,7 @@ package tipitapi.drawmytodayimprovement.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tipitapi.drawmytodayimprovement.domain.Diary;
-import tipitapi.drawmytodayimprovement.domain.MonthlyDiary;
+import tipitapi.drawmytodayimprovement.dto.MonthlyDiary;
 import tipitapi.drawmytodayimprovement.repository.DiaryRepository;
 import tipitapi.drawmytodayimprovement.utils.DateUtils;
 

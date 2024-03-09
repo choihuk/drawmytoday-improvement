@@ -25,6 +25,13 @@ public class Ticket {
                 .build();
     }
 
+    public static Ticket createAdRewardTicket(Long userId) {
+        return Ticket.builder()
+                .userId(userId)
+                .ticketType(TicketType.AD_REWARD)
+                .build();
+    }
+
     public void useTicket() {
         this.usedAt = LocalDateTime.now();
     }

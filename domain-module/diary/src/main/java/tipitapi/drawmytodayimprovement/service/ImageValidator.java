@@ -2,7 +2,7 @@ package tipitapi.drawmytodayimprovement.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tipitapi.drawmytodayimprovement.domain.MonthlyDiary;
+import tipitapi.drawmytodayimprovement.dto.MonthlyDiary;
 import tipitapi.drawmytodayimprovement.repository.ImageRepository;
 
 import java.util.List;

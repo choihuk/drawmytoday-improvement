@@ -37,7 +37,7 @@ public class SwaggerConfig {
 
     @Bean
     public GroupedOpenApi usersOpenApi() {
-        String[] paths = {"/users/**"};
+        String[] paths = {"/user/**"};
 
         return GroupedOpenApi
                 .builder()
@@ -48,7 +48,7 @@ public class SwaggerConfig {
 
     @Bean
     public GroupedOpenApi diaryOpenAPi() {
-        String[] paths = {"/translatedDiary/**"};
+        String[] paths = {"/diary/**"};
 
         return GroupedOpenApi
                 .builder()
@@ -59,7 +59,7 @@ public class SwaggerConfig {
 
     @Bean
     public GroupedOpenApi emotionsOpenAPi() {
-        String[] paths = {"/emotions/**"};
+        String[] paths = {"/emotion/**"};
 
         return GroupedOpenApi
                 .builder()

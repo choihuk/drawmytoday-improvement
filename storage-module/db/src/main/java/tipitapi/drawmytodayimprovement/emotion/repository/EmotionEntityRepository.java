@@ -14,7 +14,7 @@ import static tipitapi.drawmytodayimprovement.diary.entity.QDiaryEntity.diaryEnt
 import static tipitapi.drawmytodayimprovement.emotion.entity.QEmotionEntity.emotionEntity;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class EmotionEntityRepository implements EmotionRepository {
 

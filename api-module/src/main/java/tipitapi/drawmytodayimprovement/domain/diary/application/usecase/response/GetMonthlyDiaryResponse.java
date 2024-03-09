@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import lombok.AccessLevel;
 import lombok.Builder;
-import tipitapi.drawmytodayimprovement.domain.MonthlyDiary;
+import tipitapi.drawmytodayimprovement.dto.MonthlyDiary;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

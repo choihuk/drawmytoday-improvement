@@ -2,7 +2,7 @@ package tipitapi.drawmytodayimprovement.repository;
 
 import org.springframework.stereotype.Repository;
 import tipitapi.drawmytodayimprovement.domain.Diary;
-import tipitapi.drawmytodayimprovement.domain.MonthlyDiary;
+import tipitapi.drawmytodayimprovement.dto.MonthlyDiary;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
