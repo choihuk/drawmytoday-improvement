@@ -20,7 +20,7 @@ public interface AdRewardApi {
                     description = "성공적으로 광고 기록을 등록함"),
     })
     @PostMapping
-    ResponseEntity<Void> createDiary(
+    ResponseEntity<Void> createAdReward(
             @AuthUser JwtTokenInfo tokenInfo
     );
 }

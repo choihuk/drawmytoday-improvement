@@ -30,12 +30,12 @@ public record GetImageAdminResponse(
 ) {
     public static GetImageAdminResponse from(ImageForMonitoring imageForMonitoring) {
         return new GetImageAdminResponse(
-                imageForMonitoring.diaryId(),
-                imageForMonitoring.prompt(),
-                imageForMonitoring.createdAt(),
-                imageForMonitoring.imageCreatedAt(),
-                imageForMonitoring.imageUrl(),
-                imageForMonitoring.review(),
+                imageForMonitoring.getDiaryId(),
+                imageForMonitoring.getPrompt(),
+                imageForMonitoring.getCreatedAt(),
+                imageForMonitoring.getImageCreatedAt(),
+                imageForMonitoring.getImageUrl(),
+                imageForMonitoring.getReview(),
                 imageForMonitoring.isTest()
         );
     }

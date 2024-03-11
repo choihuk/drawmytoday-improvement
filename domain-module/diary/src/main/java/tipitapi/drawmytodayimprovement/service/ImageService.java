@@ -69,10 +69,10 @@ public class ImageService {
 
     public PageResponse<ImageForMonitoring> getImagesForMonitoring(PageableRequest pageableRequest,
                                                                    Long emotionId, boolean withTest) {
-        PageResponse<ImageForMonitoring> imagesForMonitoring = imageRepository.getImagesForMonitoring(
+        PageResponse<ImageForMonitoring> pageResponses = imageRepository.getImagesForMonitoring(
                 pageableRequest, emotionId, withTest);
-        imagesForMonitoring.forEach(image -> convertImageUrl(image, image.getImageUrl()));
-        return imagesForMonitoring;
+        pageResponses.forEach(image -> convertImageUrl(image, image.getImageUrl()));
+        return pageResponses;
     }
 
     private void convertImageUrl(ImageUrlConvertable imageUrlConvertable, String imageUrl) {

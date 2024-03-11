@@ -1,20 +1,24 @@
 package tipitapi.drawmytodayimprovement.dto;
 
-public record PageableRequest(int page, int size, String direction) {
+public record PageableRequest(int page, int size, Direction direction) {
 
     public PageableRequest {
-        if (page < 0 || size < 1 || validDirection(direction)) {
-            String errorMessage = String.format("Invalid PageableRequest: page=%d, size=%d, direction=%s",
-                    page, size, direction);
+        if (page < 0 || size < 1) {
+            String errorMessage = String.format("Invalid PageableRequest: page=%d, size=%d,", page, size);
             throw new IllegalArgumentException(errorMessage);
         }
     }
 
     public static PageableRequest of(int page, int size, String direction) {
-        return new PageableRequest(page, size, direction);
+        return new PageableRequest(page, size, Direction.valueOf(direction));
     }
 
-    private boolean validDirection(String direction) {
-        return direction.equals("ASC") || direction.equals("DESC");
+    public boolean isAscending() {
+        return direction == Direction.ASC;
     }
+
+    private enum Direction {
+        ASC, DESC
+    }
+
 }

@@ -18,7 +18,7 @@ public class AdRewardController implements AdRewardApi {
 
     @Override
     @PostMapping
-    public ResponseEntity<Void> createDiary(
+    public ResponseEntity<Void> createAdReward(
             @AuthUser JwtTokenInfo tokenInfo
     ) {
         adRewardUseCase.createAdReward(tokenInfo.userId());
