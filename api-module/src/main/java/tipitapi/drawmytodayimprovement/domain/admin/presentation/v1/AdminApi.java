@@ -17,6 +17,8 @@ import tipitapi.drawmytodayimprovement.common.security.jwt.JwtTokenInfo;
 import tipitapi.drawmytodayimprovement.domain.admin.application.response.GetImageAdminResponse;
 import tipitapi.drawmytodayimprovement.dto.PageResponse;
 
+import javax.servlet.http.HttpServletRequest;
+
 @SecurityRequirement(name = "Bearer Authentication")
 public interface AdminApi {
 
@@ -45,4 +47,22 @@ public interface AdminApi {
             @RequestParam(name = "with_test", required = false, defaultValue = "true") boolean withTest,
             @AuthUser JwtTokenInfo tokenInfo
     );
+
+    @Operation(summary = "토큰 만료", description = "jwt token을 만료시킵니다.",
+            security = @SecurityRequirement(name = "Bearer Authentication"))
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "jwt token 만료 성공"),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "S002 : 유효하지 않은 토큰입니다.",
+                    content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "S008 : jwt token이 없습니다.",
+                    content = @Content(schema = @Schema(hidden = true)))
+    })
+    @GetMapping("/expire")
+    String getExpiredJwt(HttpServletRequest request);
 }
