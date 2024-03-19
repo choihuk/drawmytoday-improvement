@@ -16,34 +16,38 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class DiaryValidator {
 
-    private final UserValidator userValidator;
-    private final EmotionValidator emotionValidator;
-    private final DiaryRepository diaryRepository;
+	private final UserValidator userValidator;
+	private final EmotionValidator emotionValidator;
+	private final DiaryRepository diaryRepository;
 
-    public Diary isDiaryOwner(Long diaryId, Long userId) {
-        Diary diary = diaryRepository.findById(diaryId).orElseThrow(DiaryNotFoundException::new);
-        if (!Objects.equals(diary.getUserId(), userId)) {
-            throw new NotOwnerOfDiaryException();
-        }
-        return diary;
-    }
+	public Diary validateByDiaryId(Long diaryId) {
+		return diaryRepository.findById(diaryId).orElseThrow(DiaryNotFoundException::new);
+	}
 
-    public void isDiaryNotExist(Long userId, LocalDate diaryDate) {
-        if (diaryRepository.existByUserIdAndDiaryDate(userId, diaryDate)) {
-            throw new DiaryDateAlreadyExistsException();
-        }
-    }
+	public Diary isDiaryOwner(Long diaryId, Long userId) {
+		Diary diary = validateByDiaryId(diaryId);
+		if (!Objects.equals(diary.getUserId(), userId)) {
+			throw new NotOwnerOfDiaryException();
+		}
+		return diary;
+	}
 
-    public Emotion validateBeforeCreateDiary(Long userId, Long emotionId, LocalDate diaryDate) {
-        userValidator.validateByUserId(userId);
-        Emotion emotion = emotionValidator.validateByEmotionId(emotionId);
-        this.isDiaryNotExist(userId, diaryDate);
-        return emotion;
-    }
+	public void isDiaryNotExist(Long userId, LocalDate diaryDate) {
+		if (diaryRepository.existByUserIdAndDiaryDate(userId, diaryDate)) {
+			throw new DiaryDateAlreadyExistsException();
+		}
+	}
 
-    public Emotion validateBeforeRegenerateDiary(Long userId, Long diaryId) {
-        userValidator.validateByUserId(userId);
-        this.isDiaryOwner(diaryId, userId);
-        return emotionValidator.validateByDiaryId(diaryId);
-    }
+	public Emotion validateBeforeCreateDiary(Long userId, Long emotionId, LocalDate diaryDate) {
+		userValidator.validateByUserId(userId);
+		Emotion emotion = emotionValidator.validateByEmotionId(emotionId);
+		this.isDiaryNotExist(userId, diaryDate);
+		return emotion;
+	}
+
+	public Emotion validateBeforeRegenerateDiary(Long userId, Long diaryId) {
+		userValidator.validateByUserId(userId);
+		this.isDiaryOwner(diaryId, userId);
+		return emotionValidator.validateByDiaryId(diaryId);
+	}
 }

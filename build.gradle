@@ -7,7 +7,7 @@ plugins {
 allprojects {
     group = "${projectGroup}"
     version = "${applicationVersion}"
-    sourceCompatibility = project.javaVersion
+    sourceCompatibility = "${javaVersion}"
 
     repositories {
         mavenCentral()
@@ -39,3 +39,4 @@ subprojects {
     }
 }
 
+bootJar.enabled = false
